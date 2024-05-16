@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { FaEthereum } from "react-icons/fa6";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
+import { IoArrowForwardOutline } from "react-icons/io5";
+import { BsCurrencyBitcoin } from "react-icons/bs";
 
 import { MdKeyboardArrowLeft } from "react-icons/md";
+import TinyLineChart from '../components/Linechart';
+import Table from '../components/Table';
+import { Link } from 'react-router-dom';
 
 
 const Dashboard = () => {
+  const [activeBadge, setActiveBadge] = useState('24H')
+  const changeBadge = (title) => {
+    setActiveBadge(title)
+  }
   return (
-    <main className='w-full h-full px-2 py-2'>
+    <main className='w-full h-full px-2 py-2 flex flex-col gap-5'>
 
 
       <section className="w-full h-24 md:h-28 flex gap-2">
@@ -46,6 +55,36 @@ const Dashboard = () => {
 
         </div>
       </section>
+      <section className='w-full h-56 bg-darker-900 rounded-2xl flex flex-col'>
+        <div className='w-full flex justify-between px-5 py-3'>
+          <h1 className='text-2xl text-white font-semibold'>
+            Overview
+          </h1>
+          <div className='flex gap-2'>
+            {
+              ['24H', '1M', '3M', '6M', '1Y'].map((i, idx) => (
+                <span
+                  key={i + idx}
+                  onClick={() => setActiveBadge(i)}
+                  className={`w-16 h-8 flex justify-center items-center ${activeBadge === i ? 'bg-gradient-to-b from-[#5F27CD] to-[#341F97]' : 'border border-[#34395C]'} px-4 py-1.5 rounded-md cursor-pointer text-white`}>
+                  {i}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+        <div className='w-full'>
+          <TinyLineChart />
+        </div>
+
+      </section>
+      <section className='w-full bg-darker-900 rounded-2xl flex flex-col gap-5 px-4 py-2'>
+        <h2 className='text-2xl font-semibold text-white'>Recent Transactions</h2>
+        <Table />
+        <Link to={'/recent-transaction'} className='flex items-center text-sm font-bold gap-3  text-primary-light'>
+          View all transaction <IoArrowForwardOutline />
+        </Link>
+      </section>
     </main>
   )
 }
@@ -75,7 +114,8 @@ const CurrencyCard = ({ title, amount, trend, tag, percent }) => {
     <div className='w-44 md:w-48 h-full  rounded-2xl border border-[#34395C]  px-3 py-2 flex flex-col justify-between'>
       <div className='flex gap-2 items-center text-white'>
         <span className='w-8 h-8 flex items-center justify-center bg-primary-shadow text-white rounded-full'>
-          <FaEthereum />
+          {title === 'Ethereum' && (<FaEthereum />)}
+          {title === 'Bitcoin' && (<BsCurrencyBitcoin className='rotate-[20deg]' />)}
         </span>
         {title}
       </div>
@@ -96,3 +136,11 @@ const CurrencyCard = ({ title, amount, trend, tag, percent }) => {
     </div>
   )
 }
+
+// const Badge = () => (
+//   <span
+//     onClick={() => changeBadge(title)}
+//     className={`w-16 h-8 flex justify-center items-center ${activeBadge === title ? 'bg-gradient-to-b from-[#5F27CD] to-[#341F97]' : 'border border-["#34395C"]'} px-4 py-1.5 rounded-md text-white`}>
+//     {title}
+//   </span>
+// )

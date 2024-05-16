@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import Logo from '../assets/logo.svg';
 import { BsSpeedometer2 } from "react-icons/bs";
+import { Link } from 'react-router-dom';
+import { MdKeyboardArrowDown } from "react-icons/md";
+
 
 
 const Sidemenu = () => {
@@ -19,10 +22,10 @@ const Sidemenu = () => {
                         <span className='font-bold text-md md:text-xl'>Samwell</span>
                     </span>
                     <div className="flex flex-col gap-3 md:gap-4">
-                        <MenuItem title="dashboard" active={active} setActive={setActive} />
-                        <MenuItem title="market" active={active} setActive={setActive} />
-                        <MenuItem title="wallet" active={active} setActive={setActive} />
-                        <MenuItem title="history" active={active} setActive={setActive} />
+                        <MenuItem link={'/'} title="dashboard" active={active} setActive={setActive} />
+                        <MenuItem link={'/'} title="market" active={active} setActive={setActive} />
+                        <MenuItem link={'/wallet/deposit'} title="wallet" active={active} setActive={setActive} />
+                        <MenuItem link={'/'} title="history" active={active} setActive={setActive} />
                     </div>
                 </div>
             </div>
@@ -47,12 +50,39 @@ export default Sidemenu
 
 
 
-const MenuItem = ({ title, active, setActive }) => (
-    <div
-        onClick={() => setActive(title)}
-        className="flex gap-2 cursor-pointer items-center  w-full justify-center lg:justify-start lg:px-6 relative">
-        <BsSpeedometer2 className={`${active === title ? 'text-primary-light' : 'text-darker-800'} text-3xl md:text-2xl`}/>
-        <p className={`${active === title ? 'text-white' : 'text-darker-600'} text-lg hidden lg:block capitalize`}>{title}</p>
-    </div>
+const MenuItem = ({ title, active, setActive, link }) => {
+    const [show, setShow] = useState(false)
+    const [innerActive, setInnerActive] = useState('Deposit')
+    return (
+        <>
+            <Link to={link} onClick={() => setActive(title)} className="flex gap-2 cursor-pointer  w-full items-center justify-center lg:justify-start lg:px-6 relative justify-start">
+                <BsSpeedometer2 className={`${active === title ? 'text-primary-light' : 'text-darker-800'} text-3xl md:text-2xl`} />
+                <p className={`${active === title ? 'text-white' : 'text-darker-600'} text-lg hidden lg:block capitalize`}>{title}</p>
+                {title === 'wallet' && (
+                    <span onClick={() => setShow(!show)} className='flex justify-between'>
+                        <MdKeyboardArrowDown />
+                    </span>)}
+            </Link>
+            {show && (
+                <div className='flex flex-col gap-3 px-10'>
+                    <InnerMenuItem link={'/wallet/deposit'} title="deposit" innerActive={innerActive} setInnerActive={setInnerActive} />
+                    <InnerMenuItem link={'/wallet/withdraw'} title="withdraw" innerActive={innerActive} setInnerActive={setInnerActive} />
+                    <InnerMenuItem link={'/wallet/exchange'} title="exchange" innerActive={innerActive} setInnerActive={setInnerActive} />
+                </div>
+            )
+            }
+        </>
 
-)
+    )
+}
+const InnerMenuItem = ({ title, innerActive, setInnerActive, link }) => {
+    const [show, setShow] = useState(false)
+    return (
+        <Link to={link} onClick={() => setInnerActive(title)} className="flex gap-2 cursor-pointer w-full items-start lg:justify-start lg:px-6 relative justify-start">
+            <BsSpeedometer2 className={`${innerActive === title ? 'text-primary-light' : 'text-darker-800'} text-3xl md:text-2xl`} />
+            <p className={`${innerActive === title ? 'text-darker-400' : 'text-darker-600'} text-lg hidden lg:block capitalize`}>{title}</p>
+
+        </Link>
+
+    )
+}
