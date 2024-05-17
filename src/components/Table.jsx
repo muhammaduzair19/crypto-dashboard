@@ -6,6 +6,8 @@ import { Tag } from 'primereact/tag';
 import { FaEthereum } from "react-icons/fa6";
 
 import { BsCurrencyBitcoin, BsCurrencyDollar } from "react-icons/bs";
+import CopyToClipboard from 'react-copy-to-clipboard';
+import copy from '../assets/copy.svg'
 
 const Table = ({ data }) => {
 
@@ -142,10 +144,10 @@ const Table = ({ data }) => {
     const getIcon = (data) => {
         switch (data.currency) {
             case 'Ethereum':
-                return <FaEthereum />
+                return <span className='inline-block'><FaEthereum /></span>;
 
             case 'Dollar':
-                return <BsCurrencyDollar />;
+                return <span className='inline-block'><BsCurrencyDollar /></span>;
 
 
             default:
@@ -155,12 +157,12 @@ const Table = ({ data }) => {
 
 
     const iconBodyTemplate = (data) => {
-        return <Tag value={data.currency} className={`uppercase font-semibold  px-3 text-sm rounded-full`} >
-            {getIcon(data)}
+        return <Tag className={`uppercase font-semibold  px-3 text-sm rounded-full`} >
+            {getIcon(data)} {data.currency}
         </Tag>;
     };
     const statusBodyTemplate = (data) => {
-        return <Tag value={data.status} className={`uppercase font-semibold  px-3 text-sm rounded-full ${getSeverity(data)}`} ></Tag>;
+        return <Tag value={data.status} className={` text-xs uppercase font-semibold  px-3 rounded-full ${getSeverity(data)}`} ></Tag>;
     };
 
 
@@ -169,12 +171,24 @@ const Table = ({ data }) => {
     };
 
 
+    const amountAddressTemplate = (data) => {
+        return (
+            <div className='flex gap-2'>
+                <p>{data.address}</p>
+                <CopyToClipboard text={data.address}                >
+                    <img className='cursor-pointer ' src={copy} alt="" />
+                </CopyToClipboard>
+            </div>
+        )
+    }
+
+
 
     return (
         <div className="w-full py-3 border-[#34395C] border flex flex-col rounded-lg">
             <DataTable value={data ? datas : datas.slice(0, 3)} className='text-darker-400 px-3'>
                 <Column field="currency" body={iconBodyTemplate} header="Currency"></Column>
-                <Column field="address" header="Address"></Column>
+                <Column field="address" body={amountAddressTemplate} header="Address"></Column>
                 <Column field="date" header="Date"></Column>
                 <Column field="status" body={statusBodyTemplate} header="Status"></Column>
                 <Column field="amount" body={amountColorTemplate} header="Amount"></Column>

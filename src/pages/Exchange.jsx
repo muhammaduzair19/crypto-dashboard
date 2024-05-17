@@ -37,7 +37,7 @@ pr-2 lg:pr-20
             </div>
             <div className='w-full text-white'>
               <label className='w-full flex gap-3 h-12 bg-darker-900 rounded-lg items-center overflow-hidden p-2'>
-                <input type="text" className='w-full px-2 h-full bg-transparent outline-none text-darker-400' />
+                <input type="number"  className='w-full px-2 h-full bg-transparent outline-none text-darker-400' />
               </label>
             </div>
           </div>
@@ -63,7 +63,7 @@ pr-2 lg:pr-20
             </div>
             <div className='w-full text-white'>
               <label className='w-full flex gap-3 h-12 bg-darker-900 rounded-lg items-center overflow-hidden p-2'>
-                <input type="text" className='w-full px-2 h-full bg-transparent outline-none text-darker-400' />
+                <input type="number" className='w-full px-2 h-full bg-transparent outline-none text-darker-400' />
               </label>
             </div>
           </div>

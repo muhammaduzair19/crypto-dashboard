@@ -7,6 +7,7 @@ import {
 } from '@mui/x-charts/LineChart';
 
 const pData = [2, 1398, 9800, 39980908, 878, 32324, 343255];
+const m3 = [343,354564,32546]
 const xData = [2, 198, 93234800, 3908, 3423, 3800, 46567868];
 const xLabels = [
     'Page A',

@@ -7,6 +7,18 @@
     border-bottom: 1px solid #34395C;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     display: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }

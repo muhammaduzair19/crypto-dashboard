@@ -25,7 +25,8 @@ const Nav = () => {
                     }
                     <div className='flex flex-col items-end'>
                         <span className='text-[#575979] text-sm'>Total Balance</span>
-                        <span className='font-bold text-white'>$ 11.827,42</span>
+                        
+                        <span className='font-bold text-white'>{showBalance ? '$ 11.827,42' : '*******'}</span>
                     </div>
 
                 </div>

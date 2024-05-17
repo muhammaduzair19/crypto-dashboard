@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import CopyToClipboard from 'react-copy-to-clipboard'
 import { BsCurrencyDollar } from 'react-icons/bs'
+import copy from '../assets/copy.svg'
 
 const Deposit = () => {
   const [coin, setCoin] = useState('BTC')
@@ -59,9 +61,11 @@ const Deposit = () => {
             </span>
             <div className='flex flex-col'>
               <p className='text-sm items-start font-light text-darker-400'>Address</p>
-              <div>
+              <div className='flex gap-2'>
                 <p>SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</p>
-                <span></span>
+                <CopyToClipboard text={'SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'}                >
+                  <img className='cursor-pointer ' src={copy} alt="" />
+                </CopyToClipboard>
               </div>
             </div>
           </div>
