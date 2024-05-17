@@ -16,7 +16,7 @@ const Table = ({ data }) => {
             id: '1000',
             currency: 'Ethereum',
             address: 'eyJhbGciOiJIUzI1NiIsInR5c',
-            date: '24 / 23 / 22',
+            date: '01-May-2024',
             status: 'pending',
             amount: 500
         },
@@ -24,7 +24,7 @@ const Table = ({ data }) => {
             id: '1001',
             currency: 'Dollar',
             address: 'eyJhbGciOiJIUzI1NiIsInR5c',
-            date: "24 / 23 / 22",
+            date: "01-May-2024",
             status: 'success',
             amount: 500
         },
@@ -32,7 +32,7 @@ const Table = ({ data }) => {
             id: '1001',
             currency: 'Dollar',
             address: 'eyJhbGciOiJIUzI1NiIsInR5c',
-            date: "24 / 23 / 22",
+            date: "01-May-2024",
             status: 'success',
             amount: 500
         },
@@ -40,7 +40,7 @@ const Table = ({ data }) => {
             id: '1003',
             currency: 'Ethereum',
             address: 'eyJhbGciOiJIUzI1NiIsInR5c',
-            date: "24 / 23 / 22",
+            date: "01-May-2024",
             status: 'failed',
             amount: 500
         },
@@ -48,7 +48,7 @@ const Table = ({ data }) => {
             id: '1000',
             currency: 'Ethereum',
             address: 'eyJhbGciOiJIUzI1NiIsInR5c',
-            date: '24 / 23 / 22',
+            date: '01-May-2024',
             status: 'pending',
             amount: 500
         },
@@ -56,7 +56,7 @@ const Table = ({ data }) => {
             id: '1001',
             currency: 'Dollar',
             address: 'eyJhbGciOiJIUzI1NiIsInR5c',
-            date: "24 / 23 / 22",
+            date: "01-May-2024",
             status: 'success',
             amount: 500
         },
@@ -64,7 +64,7 @@ const Table = ({ data }) => {
             id: '1001',
             currency: 'Dollar',
             address: 'eyJhbGciOiJIUzI1NiIsInR5c',
-            date: "24 / 23 / 22",
+            date: "01-May-2024",
             status: 'success',
             amount: 500
         },
@@ -72,7 +72,7 @@ const Table = ({ data }) => {
             id: '1003',
             currency: 'Ethereum',
             address: 'eyJhbGciOiJIUzI1NiIsInR5c',
-            date: "24 / 23 / 22",
+            date: "01-May-2024",
             status: 'failed',
             amount: 500
         },
@@ -80,7 +80,7 @@ const Table = ({ data }) => {
             id: '1000',
             currency: 'Ethereum',
             address: 'eyJhbGciOiJIUzI1NiIsInR5c',
-            date: '24 / 23 / 22',
+            date: '01-May-2024',
             status: 'pending',
             amount: 500
         },
@@ -88,7 +88,7 @@ const Table = ({ data }) => {
             id: '1001',
             currency: 'Dollar',
             address: 'eyJhbGciOiJIUzI1NiIsInR5c',
-            date: "24 / 23 / 22",
+            date: "01-May-2024",
             status: 'success',
             amount: 500
         },
@@ -96,7 +96,7 @@ const Table = ({ data }) => {
             id: '1001',
             currency: 'Dollar',
             address: 'eyJhbGciOiJIUzI1NiIsInR5c',
-            date: "24 / 23 / 22",
+            date: "01-May-2024",
             status: 'success',
             amount: 500
         },
@@ -104,7 +104,7 @@ const Table = ({ data }) => {
             id: '1003',
             currency: 'Ethereum',
             address: 'eyJhbGciOiJIUzI1NiIsInR5c',
-            date: "24 / 23 / 22",
+            date: "01-May-2024",
             status: 'failed',
             amount: 500
         },

@@ -13,7 +13,7 @@ const Login = () => {
 
 
     return (
-        <main className='w-full min-h-screen bg-[#191C2F] flex justify-center items-center'>
+        <main className='w-full px-9 sm:px-0 min-h-screen bg-[#191C2F] flex justify-center items-center'>
             <div className='w-[500px] min-h-[550px] rounded-2xl px-10 py-8 flex flex-col gap-6 bg-[#23273F]'>
                 <div className='w-44'>
                     <img src={Logo} alt="" />

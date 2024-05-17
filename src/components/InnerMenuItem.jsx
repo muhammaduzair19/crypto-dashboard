@@ -5,7 +5,7 @@ import { getSvg } from "../utils/getsvg";
 
 const InnerMenuItem = ({ title, innerActive, setInnerActive, link }) => {
     return (
-        <Link to={link} onClick={() => setInnerActive(title)} className="flex gap-2 cursor-pointer w-full items-start lg:justify-start lg:px-6 relative justify-start">
+        <Link to={link} onClick={() => setInnerActive(title)} className="flex gap-2 justify-center cursor-pointer w-full items-start lg:justify-start lg:px-6 relative ">
             {
                 getSvg(title, innerActive)
             }
