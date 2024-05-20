@@ -2,12 +2,25 @@ import React, { useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { BsCurrencyDollar } from 'react-icons/bs'
 import copy from '../assets/copy.svg'
+import SnackbarAlert from '../components/SnackbarAlert'
 
 const Deposit = () => {
   const [coin, setCoin] = useState('BTC')
   const [network, setNetwork] = useState('BSC')
+  const [open, setOpen] = useState(false)
+
+
+  const handleClick = () => {
+    setOpen(true)
+  };
+
+  const handleClose = () => {
+    setOpen(false)
+  };
+
   return (
     <main className='w-full h-full text-white flex flex-col gap-3'>
+      <SnackbarAlert open={open} handleClose={handleClose} />
       <header>
         <h1 className='text-4xl font-bold text-darker-600'>
           Deposit Crypto
@@ -64,7 +77,10 @@ const Deposit = () => {
               <div className='flex gap-2'>
                 <p>SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</p>
                 <CopyToClipboard text={'SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'}                >
-                  <img className='cursor-pointer ' src={copy} alt="" />
+                  <img
+                    onClick={handleClick}
+                    className='cursor-pointer'
+                    src={copy} alt="" />
                 </CopyToClipboard>
               </div>
             </div>

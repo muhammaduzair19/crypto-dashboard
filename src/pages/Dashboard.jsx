@@ -12,6 +12,7 @@ import Table from '../components/Table';
 import { Link } from 'react-router-dom';
 import CurrencyCard from '../components/CurrencyCard';
 import BalanceCard from '../components/BalanceCard';
+import { Snackbar } from '@mui/material';
 
 
 const Dashboard = () => {
@@ -20,8 +21,9 @@ const Dashboard = () => {
     setActiveBadge(title)
   }
   return (
-    <main className='w-full h-full px-2 py-2 flex flex-col gap-5'>
 
+    <main className='w-full h-full px-2 py-2 flex flex-col gap-5'>
+      
 
       <section className="w-full h-24 md:h-28 flex gap-2">
         <div className="w-[50%] h-full sm:w-[30%] md:w-[35%]  flex justify-between items-center sm:items-center">
