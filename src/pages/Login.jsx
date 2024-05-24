@@ -4,12 +4,35 @@ import Logo from '../assets/logo.svg';
 import { IoKeyOutline } from "react-icons/io5";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
+import { BaseUrl } from '../Hooks/useRequest';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 const Login = () => {
-    const [showPassword, setShowPassword] = useState(false)
+    const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate()
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const email = e.target[0].value
+        const password = e.target[1].value
+        const checked = e.target[2];
+        const url = `${BaseUrl}/login`
+        const results = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password })
+        })
+        const { code, data } = await results.json();
+        console.log(data, "=> data");
+        localStorage.setItem('token1fx', JSON.stringify(data.token))
+        if (code == 200) { navigate('/') }
+    }
 
 
     return (
@@ -20,21 +43,21 @@ const Login = () => {
                 </div>
                 <div className='flex flex-col'>
                     <span className='text-white'>Welcome to</span>
-                    <p className='text-[#6A74CC] font-extrabold text-2xl'>Crypto Platform</p>
+                    <p className='text-[#6A74CC] font-extrabold text-xl sm:text-2xl'>Crypto Platform</p>
                 </div>
 
-                <form className='w-full flex flex-col gap-5'>
+                <form onSubmit={handleSubmit} className='w-full flex flex-col gap-5'>
                     <div className='w-full px-4 py-2 rounded-2xl flex items-center gap-3 bg-[#34395C] '>
-                        <CiMail className='text-white' size={40} />
+                        <CiMail className='text-white' size={35} />
                         <div className='flex flex-col text-white w-full'>
-                            <span className='text-sm'>E-mail</span>
-                            <input type="text" placeholder='enter email' className='w-full bg-transparent outline-none font-bold' />
+                            <span className='text-xs sm:text-sm'>E-mail</span>
+                            <input type="email" placeholder='enter email' className='w-full bg-transparent outline-none font-bold' />
                         </div>
                     </div>
                     <div className='w-full px-4 py-2 rounded-2xl flex items-center gap-3 bg-[#34395C] '>
-                        <IoKeyOutline className='text-white' size={40} />
+                        <IoKeyOutline className='text-white' size={35} />
                         <div className='flex flex-col text-white w-full'>
-                            <span className='text-sm'>E-mail</span>
+                            <span className='text-xs sm:text-sm'>Password</span>
                             <input type={showPassword ? 'text' : 'password'} placeholder='enter password' className='w-full bg-transparent outline-none font-bold' />
                         </div>
                         {
@@ -48,10 +71,10 @@ const Login = () => {
                     </div>
                     <div className='flex justify-between items-center'>
                         <div className='flex gap-2 text-white'>
-                            <input type="checkbox" name="" id="" />
-                            <span>Remember me</span>
+                            <input type="checkbox" name="remember" value={true} />
+                            <span className='text-xs sm:text-sm'>Remember me</span>
                         </div>
-                        <p className='text-sm text-[#6A74CC]'>
+                        <p className='text-xs sm:text-sm text-[#6A74CC]'>
                             Forgot password?
                         </p>
                     </div>
@@ -60,8 +83,8 @@ const Login = () => {
                     </button>
                 </form>
 
-                <div className='flex text-white justify-center'>
-                    <p>Dont have an Account?</p>
+                <div className='flex text-white justify-center text-sm sm:text-md'>
+                    <p >Dont have an Account?</p>
                     Register
                 </div>
             </div>

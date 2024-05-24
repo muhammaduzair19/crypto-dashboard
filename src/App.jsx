@@ -10,6 +10,7 @@ import Login from './pages/Login'
 import Transactions from './pages/Transactions'
 
 const App = () => {
+  const token = localStorage.getItem('token1fx')
   return (
     <Router>
       <Routes>
@@ -29,3 +30,5 @@ const App = () => {
 }
 
 export default App
+
+
