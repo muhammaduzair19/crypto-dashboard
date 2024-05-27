@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
-import { BsCurrencyDollar } from 'react-icons/bs'
-import copy from '../assets/copy.svg'
 import SnackbarAlert from '../components/SnackbarAlert'
+import copy from '../assets/copy.svg'
+import { BsCurrencyDollar } from '../utils/Icons.js'
 import { BaseUrl, useToken } from '../Hooks/useRequest.js'
 
 const Deposit = () => {

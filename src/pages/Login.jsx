@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
-import { CiMail } from "react-icons/ci";
 import Logo from '../assets/logo.svg';
-import { IoKeyOutline } from "react-icons/io5";
-import { IoEyeOutline } from "react-icons/io5";
-import { IoEyeOffOutline } from "react-icons/io5";
 import { BaseUrl } from '../Hooks/useRequest';
 import { useNavigate } from 'react-router-dom';
+import { IoKeyOutline, IoEyeOutline, IoEyeOffOutline , CiMail} from "../utils/Icons.js";
 
 
 

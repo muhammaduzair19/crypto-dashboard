@@ -3,9 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Tag } from 'primereact/tag';
-import { FaEthereum } from "react-icons/fa6";
+import { FaEthereum, BsCurrencyDollar} from "../utils/Icons.js";
 
-import { BsCurrencyDollar } from "react-icons/bs";
 import CopyToClipboard from 'react-copy-to-clipboard';
 import copy from '../assets/copy.svg'
 import SnackbarAlert from './SnackbarAlert';

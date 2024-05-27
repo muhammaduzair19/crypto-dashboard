@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BsSpeedometer2 } from "react-icons/bs";
+import { BsSpeedometer2 } from "../utils/Icons.js";
 import { Link } from "react-router-dom";
 import { getSvg } from "../utils/getsvg";
 

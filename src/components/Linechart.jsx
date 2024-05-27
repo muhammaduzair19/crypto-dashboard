@@ -7,7 +7,7 @@ import {
 } from '@mui/x-charts/LineChart';
 
 const pData = [2, 1398, 9800, 39980908, 878, 32324, 343255];
-const m3 = [343,354564,32546]
+const m3 = [343, 354564, 32546]
 const xData = [2, 198, 93234800, 3908, 3423, 3800, 46567868];
 const xLabels = [
     'Page A',
@@ -22,9 +22,10 @@ const xLabels = [
 export default function TinyLineChart() {
     return (
         <ChartContainer
-            width={1200}
+            className='w-full bg-orange-300'
+            width={200}
             height={200}
-            series={[{ type: 'line', data: pData },{ type: 'line', data: xData }]}
+            series={[{ type: 'line', data: pData }, { type: 'line', data: xData }]}
             xAxis={[{ scaleType: 'point', data: xLabels }]}
             sx={{
                 background: 'transparent',

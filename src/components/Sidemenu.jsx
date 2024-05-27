@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
 import Logo from '../assets/logo.svg';
-import { BsSpeedometer2 } from "react-icons/bs";
-import { Link } from 'react-router-dom';
-import { MdKeyboardArrowDown } from "react-icons/md";
 import MenuItem from './MenuItem';
 
 
 
 const Sidemenu = () => {
-
+    const [show, setShow] = useState(false)
     const [active, setActive] = useState('dashboard')
 
     return (
@@ -23,17 +20,17 @@ const Sidemenu = () => {
                         <span className='font-bold text-md md:text-xl'>Samwell</span>
                     </span>
                     <div className="flex flex-col gap-3 md:gap-4">
-                        <MenuItem link={'/'} title="dashboard" active={active} setActive={setActive} />
-                        <MenuItem link={'/'} title="market" active={active} setActive={setActive} />
-                        <MenuItem link={'/wallet'} title="wallet" active={active} setActive={setActive} />
-                        <MenuItem link={'/'} title="history" active={active} setActive={setActive} />
+                        <MenuItem link={'/'} title="dashboard" active={active} setActive={setActive} setShow={setShow} show={show} />
+                        <MenuItem link={'/'} title="market" active={active} setActive={setActive} setShow={setShow} show={show} />
+                        <MenuItem link={'/wallet'} title="wallet" active={active} setActive={setActive} setShow={setShow} show={show} />
+                        <MenuItem link={'/'} title="history" active={active} setActive={setActive} setShow={setShow} show={show} />
                     </div>
                 </div>
             </div>
             <div className='flex flex-col  gap-5'>
                 <div className="flex flex-col gap-2 md:gap-4">
-                    <MenuItem title="support" active={active} setActive={setActive} />
-                    <MenuItem title="settings" active={active} setActive={setActive} />
+                    <MenuItem title="support" active={active} setActive={setActive} setShow={setShow} show={show} />
+                    <MenuItem title="settings" active={active} setActive={setActive} setShow={setShow} show={show} />
 
                 </div>
                 <span className='w-full px-2 lg:px-6 flex flex-col text-xs md:text-sm text-darker-600'>

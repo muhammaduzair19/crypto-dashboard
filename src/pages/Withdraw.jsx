@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BsCurrencyDollar } from 'react-icons/bs'
-import { IoCheckmark } from "react-icons/io5";
+import { IoCheckmark, BsCurrencyDollar} from "../utils/Icons.js";
 import { BaseUrl, useToken } from '../Hooks/useRequest';
 
 

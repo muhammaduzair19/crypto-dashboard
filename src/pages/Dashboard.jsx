@@ -1,18 +1,12 @@
 import React, { useState } from 'react'
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { BsCurrencyDollar } from "react-icons/bs";
-import { FaEthereum } from "react-icons/fa6";
-import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
-import { IoArrowForwardOutline } from "react-icons/io5";
-import { BsCurrencyBitcoin } from "react-icons/bs";
+import { Link } from 'react-router-dom';
 
-import { MdKeyboardArrowLeft } from "react-icons/md";
 import TinyLineChart from '../components/Linechart';
 import Table from '../components/Table';
-import { Link } from 'react-router-dom';
-import CurrencyCard from '../components/CurrencyCard';
 import BalanceCard from '../components/BalanceCard';
-import { Snackbar } from '@mui/material';
+import CurrencyCard from '../components/CurrencyCard';
+
+import { IoArrowForwardOutline } from '../utils/Icons.js'
 
 
 const Dashboard = () => {
@@ -23,10 +17,10 @@ const Dashboard = () => {
   return (
 
     <main className='w-full h-full px-2 py-2 flex flex-col gap-5'>
-      
 
-      <section className="w-full h-24 md:h-28 flex gap-2">
-        <div className="w-[50%] h-full sm:w-[30%] md:w-[35%]  flex justify-between items-center sm:items-center">
+
+      <section className="w-full flex gap-4 flex-col md:flex-row">
+        <div className="w-[50%] h-full sm:w-[30%] md:w-[35%]   flex justify-between items-center sm:items-center">
 
           <div className="w-[80%] flex flex-col gap-2">
             <div className='text-white'>
@@ -52,13 +46,14 @@ const Dashboard = () => {
         </div>
 
 
-        <div className="w-[70%] flex gap-2 flex-wrap">
+        <div className="w-full md:w-[70%] flex-wrap sm:flex-nowrap flex gap-2">
           <BalanceCard />
           <CurrencyCard title='Ethereum' amount='173.978' tag='ETC' trend='up' percent='1.24%' />
           <CurrencyCard title='Bitcoin' amount='98.403,38' tag='BTC' trend='down' percent='2.25%' />
 
         </div>
       </section>
+
       <section className='w-full h-56 bg-darker-900 rounded-2xl flex flex-col'>
         <div className='w-full flex justify-between px-5 py-3'>
           <h1 className='text-2xl text-white font-semibold'>

@@ -13,8 +13,8 @@ const SnackbarAlert = ({ open, handleClose }) => {
                 onClose={handleClose}
                 severity="success"
                 variant="filled"
-                sx={{ width: '100%' }}
-            >
+                sx={{ width: '100%' }}>
+
                 Text has been copied
             </Alert>
         </Snackbar>

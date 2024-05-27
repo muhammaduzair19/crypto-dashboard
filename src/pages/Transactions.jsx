@@ -1,6 +1,5 @@
 import  Table  from '../components/Table'
 import React from 'react'
-import { IoArrowForwardOutline } from 'react-icons/io5'
 
 const Transactions = () => {
     return (

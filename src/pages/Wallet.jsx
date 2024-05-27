@@ -1,13 +1,6 @@
 import React, { useEffect } from 'react'
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { BsCurrencyDollar } from "react-icons/bs";
-import { FaEthereum } from "react-icons/fa6";
-import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
-import { IoArrowForwardOutline } from "react-icons/io5";
-import { BsCurrencyBitcoin } from "react-icons/bs";
+import { IoArrowForwardOutline } from "../utils/Icons.js";
 
-import { MdKeyboardArrowLeft } from "react-icons/md";
-import TinyLineChart from '../components/Linechart';
 import Table from '../components/Table';
 import { Link } from 'react-router-dom';
 import CurrencyCard from '../components/CurrencyCard';
@@ -40,7 +33,7 @@ const Wallet = () => {
     <main className='w-full min-h-full px-2 py-2 flex flex-col gap-5 '>
 
 
-      <section className="w-full min-h-24 md:h-28 flex gap-2">
+      <section className="w-full flex gap-4 flex-col md:flex-row">
 
         <div className="flex flex-col gap-2 w-[50%] h-full sm:w-[30%] md:w-[35%] justify-between items-center sm:items-center">
           <div className='text-white'>
@@ -56,7 +49,7 @@ const Wallet = () => {
 
 
 
-        <div className="w-[70%] flex gap-2 flex-wrap">
+        <div className="w-full md:w-[70%] flex-wrap sm:flex-nowrap flex gap-2">
           <BalanceCard />
           <CurrencyCard title='Ethereum' amount='173.978' tag='ETC' trend='up' percent='1.24%' />
           <CurrencyCard title='Bitcoin' amount='98.403,38' tag='BTC' trend='down' percent='2.25%' />

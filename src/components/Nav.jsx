@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import { HiMiniMagnifyingGlass } from "react-icons/hi2";
-import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5';
-import { HiOutlineBell } from "react-icons/hi2";
+import { IoEyeOffOutline, IoEyeOutline, HiOutlineBell, HiMiniMagnifyingGlass } from '../utils/Icons.js';
 
 
 
@@ -25,7 +23,7 @@ const Nav = () => {
                     }
                     <div className='flex flex-col items-end'>
                         <span className='text-[#575979] text-sm'>Total Balance</span>
-                        
+
                         <span className='font-bold text-white'>{showBalance ? '$ 11.827,42' : '*******'}</span>
                     </div>
 

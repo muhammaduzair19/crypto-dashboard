@@ -1,10 +1,10 @@
 import React from 'react'
-import { BsArrowDownShort, BsArrowUpShort, BsCurrencyBitcoin } from 'react-icons/bs'
-import { FaEthereum } from 'react-icons/fa6'
+import { BsArrowDownShort, BsArrowUpShort, BsCurrencyBitcoin, FaEthereum } from '../utils/Icons.js'
+
 
 const CurrencyCard = ({ title, percent, amount, tag, trend }) => {
     return (
-        <div className='w-44 md:w-48 h-full  rounded-2xl border border-[#34395C]  px-3 py-2 flex flex-col justify-between'>
+        <div className='w-44 md:w-48 h-28  rounded-2xl border border-[#34395C]  px-3 py-2 flex flex-col justify-between'>
             <div className='flex gap-2 items-center text-white'>
                 <span className='w-8 h-8 flex items-center justify-center bg-primary-shadow text-white rounded-full'>
                     {title === 'Ethereum' && (<FaEthereum />)}
