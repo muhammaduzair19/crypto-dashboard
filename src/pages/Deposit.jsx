@@ -4,45 +4,47 @@ import SnackbarAlert from '../components/SnackbarAlert'
 import copy from '../assets/copy.svg'
 import { BsCurrencyDollar } from '../utils/Icons.js'
 import { BaseUrl, useToken } from '../Hooks/useRequest.js'
+import { assets } from '../utils/data.js'
 
 const Deposit = () => {
   const [coin, setCoin] = useState('')
-  const [coinData, setCoinData] = useState([])
   const [network, setNetwork] = useState('')
   const [networkData, setNetworkData] = useState([])
   const [addressData, setAddressData] = useState([])
   const [address, setAddress] = useState()
   const [open, setOpen] = useState(false);
 
-  const getAssets = async () => {
-    const url = `${BaseUrl}/spotMarketData/assets`;
-    const token = useToken();
+  // const [coinData, setCoinData] = useState()
+  // const getAssets = async () => {
+  //   const url = `${BaseUrl}/spotMarketData/assets`;
+  //   const token = useToken();
 
-    console.log(token);
-    const results = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-    const resultData = await results.json();
+  //   console.log(token);
+  //   const results = await fetch(url, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${token}`,
+  //     },
+  //   });
+  //   const resultData = await results.json();
 
-    console.log(resultData);
-    const { data, code } = resultData;
+  //   console.log(resultData);
+  //   const { data, code } = resultData;
 
 
-    if (data != null && code == 200) {
-      setCoinData(data)
-    }
-    else {
-      setCoinData([])
-    }
+  //   if (data != null && code == 200) {
+  //     setCoinData(data)
+  //   }
+  //   else {
+  //     setCoinData([])
+  //   }
 
-  }
+  // }
 
 
   const getNetwork = async (asset) => {
+    console.log(asset);
     const token = useToken();
     if (asset != 'not selected') {
       setCoin(asset)
@@ -67,7 +69,6 @@ const Deposit = () => {
     }
   }
 
-
   const getAddress = async (asset, method) => {
     const token = useToken();
     if (method != 'not selected') {
@@ -85,7 +86,7 @@ const Deposit = () => {
 
       console.log(resultData);
       const { data, code } = resultData;
-      
+
       if (data != null && code == 200) {
         setAddressData(data)
       }
@@ -95,16 +96,15 @@ const Deposit = () => {
     }
   }
 
-
   const getQR = async (link) => {
     if (link !== 'not selected') {
       setAddress(link)
     }
   }
 
-  useEffect(() => {
-    getAssets();
-  }, [])
+  // useEffect(() => {
+  //  getAssets();
+  // }, [])
 
 
 
@@ -138,8 +138,8 @@ const Deposit = () => {
                 <select onChange={(e) => getNetwork(e.target.value)} name="coin" className=' w-full  flex bg-darker-900 h-full outline-none'>
                   <option value={'not selected'}>Select Coin</option>
                   {
-                    coinData[0] &&
-                    coinData?.map(({ altname }, idx) => (<option key={idx + altname} value={altname}>{altname}</option>))
+                    assets[0] &&
+                    assets?.map(({ altname }, idx) => (<option key={idx + altname} value={altname}>{altname}</option>))
                   }
 
                 </select>

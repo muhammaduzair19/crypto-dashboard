@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 
 import TinyLineChart from '../components/Linechart';
@@ -7,13 +7,45 @@ import BalanceCard from '../components/BalanceCard';
 import CurrencyCard from '../components/CurrencyCard';
 
 import { IoArrowForwardOutline } from '../utils/Icons.js'
+import { BaseUrl, useToken } from '../Hooks/useRequest.js';
 
 
 const Dashboard = () => {
   const [activeBadge, setActiveBadge] = useState('24H')
-  const changeBadge = (title) => {
-    setActiveBadge(title)
+  const [balance, setBalance] = useState([])
+
+
+  const getBalance = async () => {
+    const url = `${BaseUrl}/accountData/balance`;
+    const token = useToken();
+
+    const results = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    const { data, code } = await results.json();
+    console.log(data);
+    if (data != null && code == 200) {
+      setBalance(data)
+    }
+    else {
+      console.log([])
+    }
   }
+
+  useEffect(() => {
+    getBalance();
+  }, [])
+
+
+
+
+
+
+
   return (
 
     <main className='w-full h-full px-2 py-2 flex flex-col gap-5'>
@@ -48,8 +80,11 @@ const Dashboard = () => {
 
         <div className="w-full md:w-[70%] flex-wrap sm:flex-nowrap flex gap-2">
           <BalanceCard />
-          <CurrencyCard title='Ethereum' amount='173.978' tag='ETC' trend='up' percent='1.24%' />
-          <CurrencyCard title='Bitcoin' amount='98.403,38' tag='BTC' trend='down' percent='2.25%' />
+          {
+            balance[0] && balance?.map(({ blockchain, symbol, tokens, balance }) => (
+              <CurrencyCard title={blockchain} amount={balance} tag={symbol} tokens={tokens} />
+            ))
+          }
 
         </div>
       </section>

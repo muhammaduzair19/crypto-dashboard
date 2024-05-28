@@ -1,41 +1,41 @@
 import React, { useEffect, useState } from 'react'
-import { IoCheckmark, BsCurrencyDollar} from "../utils/Icons.js";
+import { IoCheckmark, BsCurrencyDollar } from "../utils/Icons.js";
 import { BaseUrl, useToken } from '../Hooks/useRequest';
+import { assets } from '../utils/data.js'
+
 
 
 const Withdraw = () => {
   const [coin, setCoin] = useState('BTC')
-  const [coinData, setCoinData] = useState([])
   const [networkData, setNetworkData] = useState([])
   const [activeTab, setActiveTab] = useState('BSC');
 
 
-  const getAssets = async () => {
-    const url = `${BaseUrl}/spotMarketData/assets`;
-    const token = useToken()
+  // const [coinData, setCoinData] = useState([])
+  // const getAssets = async () => {
+  //   const url = `${BaseUrl}/spotMarketData/assets`;
+  //   const token = useToken()
 
-    const results = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-    const resultData = await results.json();
+  //   const results = await fetch(url, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${token}`,
+  //     },
+  //   });
+  //   const resultData = await results.json();
 
-    console.log(resultData);
-    const { data, code } = resultData;
-
-
-    if (data != null && code == 200) {
-      setCoinData(data)
-    }
-    else {
-      setCoinData([])
-    }
-  }
+  //   console.log(resultData);
+  //   const { data, code } = resultData;
 
 
+  //   if (data != null && code == 200) {
+  //     setCoinData(data)
+  //   }
+  //   else {
+  //     setCoinData([])
+  //   }
+  // }
 
   const getNetwork = async (asset) => {
     const token = useToken();
@@ -50,7 +50,7 @@ const Withdraw = () => {
         body: JSON.stringify({ asset })
       })
       const { code, data } = await results.json()
-      if (data !== null && code == 200) {
+      if (data !== null && code === 200) {
         setNetworkData(data)
       } else {
         setNetworkData([])
@@ -59,32 +59,10 @@ const Withdraw = () => {
     }
   }
 
-  const getBalance = async () => {
-    const url = `${BaseUrl}/accountData/balance`;
-    const token = useToken();
-
-    const results = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-    const data = await results.json();
-    console.log(data);
-    if (data != null && code == 200) {
-      console.log(data)
-    }
-    else {
-      console.log([])
-    }
-  }
-
 
 
   useEffect(() => {
-    getAssets();
-    getBalance()
+    // getAssets();
   }, [])
 
 
@@ -112,8 +90,8 @@ const Withdraw = () => {
                 <select onChange={(e) => getNetwork(e.target.value)} name="coin" className=' w-full  flex bg-darker-900 h-full outline-none'>
                   <option value={'not selected'}>Select Coin</option>
                   {
-                    coinData[0] &&
-                    coinData?.map(({ altname }, idx) => (<option key={idx + altname} value={altname}>{altname}</option>))
+                    assets[0] &&
+                    assets?.map(({ altname }, idx) => (<option key={idx + altname} value={altname}>{altname}</option>))
                   }
 
                 </select>
@@ -138,6 +116,7 @@ const Withdraw = () => {
           {
             networkData[0] && networkData.map(({ asset, method }, idx) => (
               <div
+                key={asset + idx}
                 onClick={() => setActiveTab(method)}
                 className='w-full flex py-2 px-4 gap-2 rounded-lg border border-[#23273F] items-center'>
                 <span className={`w-11 h-11 ${activeTab === method ? 'bg-gradient-to-b from-[#5F27CD] to-[#341F97]' : 'bg-darker-800'} rounded-full flex justify-center items-center text-white`}>
