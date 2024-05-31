@@ -2,13 +2,17 @@ import React, { useState } from 'react'
 import Logo from '../assets/logo.svg';
 import { BaseUrl } from '../Hooks/useRequest';
 import { useNavigate } from 'react-router-dom';
-import { IoKeyOutline, IoEyeOutline, IoEyeOffOutline , CiMail} from "../utils/Icons.js";
+import { IoKeyOutline, IoEyeOutline, IoEyeOffOutline, CiMail } from "../utils/Icons.js";
+import SnackbarAlert from '../components/SnackbarAlert.jsx';
 
 
 
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [severity, setSeverity] = useState('');
+    const [message, setMessage] = useState(false);
     const navigate = useNavigate()
 
 
@@ -25,15 +29,26 @@ const Login = () => {
             },
             body: JSON.stringify({ email, password })
         })
-        const { code, data } = await results.json();
+        const { code, message, data } = await results.json();
         console.log(data, "=> data");
-        localStorage.setItem('token1fx', JSON.stringify(data.token))
-        if (code == 200) { navigate('/') }
+        if (code === 200 && data.token) {
+            localStorage.setItem('token1fx', JSON.stringify(data.token))
+            setOpen(true)
+            setMessage('Login Successfull')
+            setSeverity('success')
+            navigate('/')
+        }
     }
+
+    const handleClose = () => {
+        setOpen(false)
+    };
+
 
 
     return (
         <main className='w-full px-9 sm:px-0 min-h-screen bg-[#191C2F] flex justify-center items-center'>
+            <SnackbarAlert handleClose={handleClose} open={open} message={message} severity={severity} />
             <div className='w-[500px] min-h-[550px] rounded-2xl px-10 py-8 flex flex-col gap-6 bg-[#23273F]'>
                 <div className='w-44'>
                     <img src={Logo} alt="" />

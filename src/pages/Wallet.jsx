@@ -5,54 +5,52 @@ import Table from '../components/Table';
 import { Link } from 'react-router-dom';
 import CurrencyCard from '../components/CurrencyCard';
 import BalanceCard from '../components/BalanceCard';
-import { BaseUrl, useToken } from '../Hooks/useRequest';
+import { BaseUrl, useGetRequest, useToken } from '../Hooks/useRequest';
 
 const Wallet = () => {
 
   const [balance, setBalance] = useState([])
 
 
-  const getLedger = async () => {
-    const url = `${BaseUrl}/accountData/ledgers`;
-    const token = useToken();
+  // const getLedger = async () => {
+  //   const url = `${BaseUrl}/accountData/ledgers`;
+  //   const token = useToken();
 
-    const results = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-    const data = await results.json();
-    console.log(data);
-  }
+  //   const results = await fetch(url, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${token}`,
+  //     },
+  //   });
+  //   const data = await results.json();
+  //   console.log(data);
+  // }
 
 
 
   const getBalance = async () => {
-    const url = `${BaseUrl}/accountData/balance`;
-    const token = useToken();
 
-    const results = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-    const { data, code } = await results.json();
-    console.log(data);
+    const { data, code } = await useGetRequest('wallets')
+    console.log('data=>', data);
     if (data != null && code == 200) {
       setBalance(data)
     }
     else {
-      console.log([])
+      setBalance([])
     }
   }
 
+  const getTransactions = async () => {
+    console.log('in trans');
+    const result = await useGetRequest('transactions');
+    console.log(result);
+}
+
+
   useEffect(() => {
     getBalance();
-    getLedger();
+    getTransactions();
   }, [])
 
 
@@ -82,8 +80,8 @@ const Wallet = () => {
         <div className="w-full md:w-[70%] flex-wrap sm:flex-nowrap flex gap-2">
           <BalanceCard />
           {
-            balance[0] && balance?.map(({ blockchain, symbol, tokens, balance }) => (
-              <CurrencyCard title={blockchain} amount={balance} tag={symbol} tokens={tokens} />
+            balance[0] && balance?.map(({ balance }, idx) => (
+              <CurrencyCard key={idx + balance?.address} title={balance?.blockchain} amount={balance?.balance} tag={balance?.symbol} tokens={balance?.tokens} />
             ))
           }
         </div>
@@ -93,7 +91,7 @@ const Wallet = () => {
 
       <section className='w-full bg-darker-900 rounded-2xl flex flex-col gap-5 px-4 py-2'>
         <h2 className='text-2xl font-semibold text-white'>Recent Transactions</h2>
-        <Table data='all' />
+        <Table/>
         <Link to={'/recent-transaction'} className='flex items-center text-sm font-bold gap-3  text-primary-light'>
           View all transaction <IoArrowForwardOutline />
         </Link>

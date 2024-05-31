@@ -1,73 +1,93 @@
 import React, { useEffect, useState } from 'react'
 import { IoCheckmark, BsCurrencyDollar } from "../utils/Icons.js";
-import { BaseUrl, useToken } from '../Hooks/useRequest';
-import { assets } from '../utils/data.js'
+import { BaseUrl, useGetRequest, useToken } from '../Hooks/useRequest';
+import copy from '../assets/copy.svg'
+import CopyToClipboard from 'react-copy-to-clipboard';
+import SnackbarAlert from '../components/SnackbarAlert.jsx';
+
 
 
 
 const Withdraw = () => {
   const [coin, setCoin] = useState('BTC')
+  const [open, setOpen] = useState(false)
   const [networkData, setNetworkData] = useState([])
+  const [address, setAddress] = useState([])
   const [activeTab, setActiveTab] = useState('BSC');
+  const [coinData, setCoinData] = useState([])
+  const [balance, setBalance] = useState()
 
 
-  // const [coinData, setCoinData] = useState([])
-  // const getAssets = async () => {
-  //   const url = `${BaseUrl}/spotMarketData/assets`;
-  //   const token = useToken()
-
-  //   const results = await fetch(url, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${token}`,
-  //     },
-  //   });
-  //   const resultData = await results.json();
-
-  //   console.log(resultData);
-  //   const { data, code } = resultData;
-
-
-  //   if (data != null && code == 200) {
-  //     setCoinData(data)
-  //   }
-  //   else {
-  //     setCoinData([])
-  //   }
-  // }
-
-  const getNetwork = async (asset) => {
-    const token = useToken();
-    if (asset != 'not selected') {
-      setCoin(asset)
-      const results = await fetch(`${BaseUrl}/funding/withdrawal-methods`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({ asset })
-      })
-      const { code, data } = await results.json()
-      if (data !== null && code === 200) {
-        setNetworkData(data)
-      } else {
-        setNetworkData([])
-      }
-
+  const getAssets = async () => {
+    setAddress('')
+    setBalance({})  
+    const { data, code } = await useGetRequest('funding/assets')
+    console.log('data=>', data);
+    if (data != null && code == 200) {
+      setCoinData(data)
+    }
+    else {
+      setCoinData([])
     }
   }
 
 
+  const getNetwork = async (asset) => {
+    setAddress('')
+    setBalance({})
+    if (asset != 'not selected') {
+      setCoin(asset)
+      const { data, code } = await useGetRequest(`funding/withdrawal-methods?asset=${asset}`)
+      console.log(data);
+      if (data != null && code == 200) {
+        setNetworkData(data)
+      }
+      else {
+        setNetworkData([])
+      }
+    }
+  }
+
+  const getAddress = (blockchain) => {
+    setActiveTab(blockchain)
+    const updatedNetwork = networkData?.filter((i) => i.blockchain === blockchain)
+    setAddress(updatedNetwork[0].address)
+    getWallet(blockchain)
+  }
+
+
+
+  const getWallet = async (blockchain) => {
+    if (blockchain != '') {
+      const { data, code } = await useGetRequest(`wallets?blockchain=${blockchain}`)
+      console.log(data);
+      if (data != null && code == 200) {
+        const { balance: walletBalance } = data[0];
+        setBalance(walletBalance);
+      }
+      else {
+        setNetworkData([])
+      }
+    }
+  }
+
+  const handleClick = () => {
+    setOpen(true)
+  };
+
+  const handleClose = () => {
+    setOpen(false)
+  };
 
   useEffect(() => {
-    // getAssets();
+    getAssets();
   }, [])
 
 
   return (
     <main className='w-full h-full flex flex-col gap-3'>
+      <SnackbarAlert message={'Text has been copied'} open={open} handleClose={handleClose} />
+
       <header>
 
         <h1 className='text-4xl font-bold text-darker-600'>
@@ -79,7 +99,20 @@ const Withdraw = () => {
         <div className='flex w-full flex-wrap gap-3'>
           <div className='w-[54%] h-44 flex-col flex gap-4'>
             <h2 className='text-2xl text-darker-600 font-bold'>Deposity Address</h2>
-            <p className='text-darker-400'>SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</p>
+            <div className='flex gap-2'>
+              <p className='text-darker-400'>{address != '' ? address : 'No address found'}</p>
+              {
+                address && (
+                  <CopyToClipboard text={address}>
+                    <img
+                      onClick={handleClick}
+                      className='cursor-pointer'
+                      src={copy} alt="" />
+                  </CopyToClipboard>
+                )
+              }
+
+            </div>
             <div className='w-full text-white'>
               <p className='font-semibold mb-1 text-md'>Select Coin</p>
               <label className='w-full flex gap-3 h-12 bg-darker-900 rounded-lg items-center overflow-hidden pl-4'>
@@ -90,8 +123,8 @@ const Withdraw = () => {
                 <select onChange={(e) => getNetwork(e.target.value)} name="coin" className=' w-full  flex bg-darker-900 h-full outline-none'>
                   <option value={'not selected'}>Select Coin</option>
                   {
-                    assets[0] &&
-                    assets?.map(({ altname }, idx) => (<option key={idx + altname} value={altname}>{altname}</option>))
+                    coinData[0] &&
+                    coinData?.map(({ altname }, idx) => (<option key={idx + altname} value={altname}>{altname}</option>))
                   }
 
                 </select>
@@ -100,9 +133,9 @@ const Withdraw = () => {
           </div>
           <div className='w-[44%] flex flex-col gap-4 h-44 justify-between pb-4'>
             <h2 className='text-2xl text-darker-600 font-bold'>Wallet Info</h2>
-            <h4 className='font-semibold text-darker-400'>Bitcon (BTC)</h4>
+            <h4 className='font-semibold text-darker-400'>{balance?.blockchain}  { balance?.symbol && `(${balance?.symbol})`}</h4>
             <h4 className='font-semibold text-darker-400'>Current Balance</h4>
-            <h2 className='font-semibold text-3xl text-darker-400'>0,18974635 </h2>
+            <h2 className='font-semibold text-3xl text-darker-400'>{balance?.tokens} </h2>
           </div>
         </div>
         <div className='w-[54%] h-full bg-transparent flex flex-col gap-2'>
@@ -114,19 +147,19 @@ const Withdraw = () => {
           }
 
           {
-            networkData[0] && networkData.map(({ asset, method }, idx) => (
+            networkData[0] && networkData.map(({ blockchain, name }, idx) => (
               <div
-                key={asset + idx}
-                onClick={() => setActiveTab(method)}
-                className='w-full flex py-2 px-4 gap-2 rounded-lg border border-[#23273F] items-center'>
-                <span className={`w-11 h-11 ${activeTab === method ? 'bg-gradient-to-b from-[#5F27CD] to-[#341F97]' : 'bg-darker-800'} rounded-full flex justify-center items-center text-white`}>
-                  {activeTab === method && <IoCheckmark size={22} />}
+                key={name + idx}
+                onClick={() => getAddress(blockchain)}
+                className='w-full cursor-pointer flex py-2 px-4 gap-2 rounded-lg border border-[#23273F] items-center'>
+                <span className={`w-11 h-11 ${activeTab === blockchain ? 'bg-gradient-to-b from-[#5F27CD] to-[#341F97]' : 'bg-darker-800'} rounded-full flex justify-center items-center text-white`}>
+                  {activeTab === blockchain && <IoCheckmark size={22} />}
                 </span>
 
                 <div className='flex justify-between items-end w-full'>
                   <div className='flex flex-col justify-center'>
-                    <p className='text-white text-lg font-bold'>{asset}</p>
-                    <p className='text-darker-400 text-md'>{method}</p>
+                    <p className='text-white text-lg font-bold'>{blockchain}</p>
+                    <p className='text-darker-400 text-md'>{name}</p>
                   </div>
                   <p className='text-darker-400 text-md'>Fee: <span className='font-bold'> 1.47%</span></p>
                 </div>

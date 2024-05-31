@@ -7,7 +7,7 @@ import BalanceCard from '../components/BalanceCard';
 import CurrencyCard from '../components/CurrencyCard';
 
 import { IoArrowForwardOutline } from '../utils/Icons.js'
-import { BaseUrl, useToken } from '../Hooks/useRequest.js';
+import { BaseUrl, useGetRequest, useToken } from '../Hooks/useRequest.js';
 
 
 const Dashboard = () => {
@@ -16,23 +16,14 @@ const Dashboard = () => {
 
 
   const getBalance = async () => {
-    const url = `${BaseUrl}/accountData/balance`;
-    const token = useToken();
 
-    const results = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-    const { data, code } = await results.json();
-    console.log(data);
+    const { data, code } = await useGetRequest('wallets')
+    console.log('data=>', data);
     if (data != null && code == 200) {
       setBalance(data)
     }
     else {
-      console.log([])
+      setBalance([])
     }
   }
 
@@ -81,8 +72,8 @@ const Dashboard = () => {
         <div className="w-full md:w-[70%] flex-wrap sm:flex-nowrap flex gap-2">
           <BalanceCard />
           {
-            balance[0] && balance?.map(({ blockchain, symbol, tokens, balance }) => (
-              <CurrencyCard title={blockchain} amount={balance} tag={symbol} tokens={tokens} />
+            balance[0] && balance?.map(({ balance }, idx) => (
+              <CurrencyCard key={idx + balance?.address} title={balance?.blockchain} amount={balance?.balance} tag={balance?.symbol} tokens={balance?.tokens} />
             ))
           }
 
@@ -114,7 +105,7 @@ const Dashboard = () => {
       </section>
       <section className='w-full bg-darker-900 rounded-2xl flex flex-col gap-5 px-4 py-2'>
         <h2 className='text-2xl font-semibold text-white'>Recent Transactions</h2>
-        <Table />
+        <Table limit={2} />
         <Link to={'/recent-transaction'} className='flex items-center text-sm font-bold gap-3  text-primary-light'>
           View all transaction <IoArrowForwardOutline />
         </Link>

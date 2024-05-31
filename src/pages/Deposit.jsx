@@ -3,63 +3,33 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import SnackbarAlert from '../components/SnackbarAlert'
 import copy from '../assets/copy.svg'
 import { BsCurrencyDollar } from '../utils/Icons.js'
-import { BaseUrl, useToken } from '../Hooks/useRequest.js'
-import { assets } from '../utils/data.js'
+import { useGetRequest, usePostRequest, useToken } from '../Hooks/useRequest.js'
 
 const Deposit = () => {
   const [coin, setCoin] = useState('')
-  const [network, setNetwork] = useState('')
   const [networkData, setNetworkData] = useState([])
-  const [addressData, setAddressData] = useState([])
   const [address, setAddress] = useState()
   const [open, setOpen] = useState(false);
-
-  // const [coinData, setCoinData] = useState()
-  // const getAssets = async () => {
-  //   const url = `${BaseUrl}/spotMarketData/assets`;
-  //   const token = useToken();
-
-  //   console.log(token);
-  //   const results = await fetch(url, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${token}`,
-  //     },
-  //   });
-  //   const resultData = await results.json();
-
-  //   console.log(resultData);
-  //   const { data, code } = resultData;
+  const [coinData, setCoinData] = useState()
 
 
-  //   if (data != null && code == 200) {
-  //     setCoinData(data)
-  //   }
-  //   else {
-  //     setCoinData([])
-  //   }
-
-  // }
+  const getAssets = async () => {
+    const { data, code } = await useGetRequest('funding/assets')
+    console.log('data=>', data);
+    if (data != null && code == 200) {
+      setCoinData(data)
+    }
+    else {
+      setCoinData([])
+    }
+  }
 
 
   const getNetwork = async (asset) => {
-    console.log(asset);
-    const token = useToken();
+    setAddress('')
     if (asset != 'not selected') {
       setCoin(asset)
-      const results = await fetch(`${BaseUrl}/funding/deposit-method`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({ asset })
-      })
-      const resultData = await results.json();
-
-      console.log(resultData);
-      const { data, code } = resultData;
+      const { data, code } = await useGetRequest(`funding/deposit-methods?asset=${asset}`)
       if (data != null && code == 200) {
         setNetworkData(data)
       }
@@ -69,32 +39,14 @@ const Deposit = () => {
     }
   }
 
-  const getAddress = async (asset, method) => {
-    const token = useToken();
-    if (method != 'not selected') {
-      setNetwork(method);
-      const results = await fetch(`${BaseUrl}/funding/deposit-addresses`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({ asset, method })
-      })
-
-      const resultData = await results.json();
-
-      console.log(resultData);
-      const { data, code } = resultData;
-
-      if (data != null && code == 200) {
-        setAddressData(data)
-      }
-      else {
-        setAddressData([])
-      }
-    }
+  const getAddress = (blockchain) => {
+    const updatedNetwork = networkData?.filter((i) => i.blockchain === blockchain)
+    setAddress(updatedNetwork[0].address)
+    getWallet(blockchain);
   }
+
+
+
 
   const getQR = async (link) => {
     if (link !== 'not selected') {
@@ -102,9 +54,9 @@ const Deposit = () => {
     }
   }
 
-  // useEffect(() => {
-  //  getAssets();
-  // }, [])
+  useEffect(() => {
+    getAssets();
+  }, [])
 
 
 
@@ -118,7 +70,7 @@ const Deposit = () => {
 
   return (
     <main className='w-full h-full text-white flex flex-col gap-3'>
-      <SnackbarAlert open={open} handleClose={handleClose} />
+      <SnackbarAlert message={'Text has been copied'} open={open} handleClose={handleClose} />
       <header>
         <h1 className='text-4xl font-bold text-darker-600'>
           Deposit Crypto
@@ -138,8 +90,8 @@ const Deposit = () => {
                 <select onChange={(e) => getNetwork(e.target.value)} name="coin" className=' w-full  flex bg-darker-900 h-full outline-none'>
                   <option value={'not selected'}>Select Coin</option>
                   {
-                    assets[0] &&
-                    assets?.map(({ altname }, idx) => (<option key={idx + altname} value={altname}>{altname}</option>))
+                    // coinData[0] &&
+                    coinData?.map(({ altname }, idx) => (<option key={idx + altname} value={altname}>{altname}</option>))
                   }
 
                 </select>
@@ -152,7 +104,7 @@ const Deposit = () => {
                   <BsCurrencyDollar />
                 </span>
                 •
-                <select onChange={(e) => getAddress(coin, e.target.value)} name="network" className=' w-full  flex bg-darker-900 h-full outline-none'>
+                <select onChange={(e) => getAddress(e.target.value)} name="network" className=' w-full  flex bg-darker-900 h-full outline-none'>
 
                   {
                     !networkData[0] ? (<option value={'no method'}>No deposit method found</option>) : (
@@ -163,8 +115,8 @@ const Deposit = () => {
 
                   {
                     networkData[0] &&
-                    networkData.map(({ method }, idx) => (
-                      <option key={idx + method} value={method}>{method}</option>)
+                    networkData.map(({ blockchain }, idx) => (
+                      <option key={idx + blockchain} value={blockchain}>{blockchain}</option>)
                     )
                   }
 
@@ -182,20 +134,9 @@ const Deposit = () => {
             </span>
 
             {
-              addressData[0] ? (
+              address ? (
                 <div className='flex flex-col'>
-                  {
-                    addressData.length > 1 && (
 
-                      <select onChange={(e) => getQR(e.target.value)} name="coin" className=' w-full  flex bg-darker-900 h-full outline-none'>
-                        <option value={'not selected'}>Select Address</option>
-                        {
-                          addressData[0] &&
-                          addressData?.map(({ address }, idx) => (<option key={idx + address} value={address}>{address}</option>))
-                        }
-                      </select>
-                    )
-                  }
                   <p className='text-sm items-start font-light text-darker-400'>Address</p>
                   <div className='flex gap-2'>
                     <p>{address}</p>
@@ -212,12 +153,6 @@ const Deposit = () => {
                   <p className='text-sm items-start font-light text-darker-400'>Address</p>
                   <div className='flex gap-2'>
                     <p>NO ADDRESS FOUND</p>
-                    <CopyToClipboard text={'NO ADDRESS FOUND'}                >
-                      <img
-                        onClick={handleClick}
-                        className='cursor-pointer'
-                        src={copy} alt="" />
-                    </CopyToClipboard>
                   </div>
                 </div>
               )
