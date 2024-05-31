@@ -19,7 +19,6 @@ const Table = ({ limit }) => {
     const getTransactions = async () => {
         const result = await useGetRequest('transactions');
         setData(result?.data)
-        console.log(result.data);
     }
 
 

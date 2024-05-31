@@ -30,7 +30,6 @@ const Login = () => {
             body: JSON.stringify({ email, password })
         })
         const { code, message, data } = await results.json();
-        console.log(data, "=> data");
         if (code === 200 && data.token) {
             localStorage.setItem('token1fx', JSON.stringify(data.token))
             setOpen(true)

@@ -11,28 +11,9 @@ const Wallet = () => {
 
   const [balance, setBalance] = useState([])
 
-
-  // const getLedger = async () => {
-  //   const url = `${BaseUrl}/accountData/ledgers`;
-  //   const token = useToken();
-
-  //   const results = await fetch(url, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${token}`,
-  //     },
-  //   });
-  //   const data = await results.json();
-  //   console.log(data);
-  // }
-
-
-
   const getBalance = async () => {
 
     const { data, code } = await useGetRequest('wallets')
-    console.log('data=>', data);
     if (data != null && code == 200) {
       setBalance(data)
     }
@@ -40,12 +21,6 @@ const Wallet = () => {
       setBalance([])
     }
   }
-
-  const getTransactions = async () => {
-    console.log('in trans');
-    const result = await useGetRequest('transactions');
-    console.log(result);
-}
 
 
   useEffect(() => {

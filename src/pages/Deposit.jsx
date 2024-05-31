@@ -15,7 +15,6 @@ const Deposit = () => {
 
   const getAssets = async () => {
     const { data, code } = await useGetRequest('funding/assets')
-    console.log('data=>', data);
     if (data != null && code == 200) {
       setCoinData(data)
     }

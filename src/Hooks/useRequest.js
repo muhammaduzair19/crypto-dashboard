@@ -24,7 +24,7 @@ export const usePostRequest = async (endpoints, body) => {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ body })
+        body: JSON.stringify(body)
     })
     return await results.json();
 };
