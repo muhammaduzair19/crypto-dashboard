@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { IoArrowForwardOutline } from "../utils/Icons.js";
 
 import Table from '../components/Table';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CurrencyCard from '../components/CurrencyCard';
 import BalanceCard from '../components/BalanceCard';
 import { BaseUrl, useGetRequest, useToken } from '../Hooks/useRequest';
@@ -10,9 +10,10 @@ import { BaseUrl, useGetRequest, useToken } from '../Hooks/useRequest';
 const Wallet = () => {
 
   const [balance, setBalance] = useState([])
+  const navigate = useNavigate()
+
 
   const getBalance = async () => {
-
     const { data, code } = await useGetRequest('wallets')
     if (data != null && code == 200) {
       setBalance(data)
@@ -22,11 +23,14 @@ const Wallet = () => {
     }
   }
 
-
   useEffect(() => {
-    getBalance();
+    const token = useToken();
+    if (token == null || token == undefined) {
+      navigate('/login')
+    } else {
+      getBalance();
+    }
   }, [])
-
 
 
 
@@ -65,7 +69,7 @@ const Wallet = () => {
 
       <section className='w-full bg-darker-900 rounded-2xl flex flex-col gap-5 px-4 py-2'>
         <h2 className='text-2xl font-semibold text-white'>Recent Transactions</h2>
-        <Table/>
+        <Table />
         <Link to={'/recent-transaction'} className='flex items-center text-sm font-bold gap-3  text-primary-light'>
           View all transaction <IoArrowForwardOutline />
         </Link>

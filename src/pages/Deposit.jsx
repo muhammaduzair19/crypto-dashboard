@@ -4,6 +4,7 @@ import SnackbarAlert from '../components/SnackbarAlert'
 import copy from '../assets/copy.svg'
 import { BsCurrencyDollar } from '../utils/Icons.js'
 import { useGetRequest, usePostRequest, useToken } from '../Hooks/useRequest.js'
+import { useNavigate } from 'react-router-dom'
 
 const Deposit = () => {
   const [coin, setCoin] = useState('')
@@ -11,6 +12,7 @@ const Deposit = () => {
   const [address, setAddress] = useState()
   const [open, setOpen] = useState(false);
   const [coinData, setCoinData] = useState()
+  const navigate = useNavigate()
 
 
   const getAssets = async () => {
@@ -52,8 +54,18 @@ const Deposit = () => {
     }
   }
 
+
+
   useEffect(() => {
-    getAssets();
+    const token = useToken();
+    if (token == null || token == undefined) {
+      navigate('/login')
+    }
+    else {
+      getAssets();
+
+    }
+
   }, [])
 
 

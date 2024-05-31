@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import TinyLineChart from '../components/Linechart';
 import Table from '../components/Table';
@@ -11,12 +11,12 @@ import { BaseUrl, useGetRequest, useToken } from '../Hooks/useRequest.js';
 
 
 const Dashboard = () => {
-  const [activeBadge, setActiveBadge] = useState('24H')
+  const navigate = useNavigate()
   const [balance, setBalance] = useState([])
+  const [activeBadge, setActiveBadge] = useState('24H')
 
 
   const getBalance = async () => {
-
     const { data, code } = await useGetRequest('wallets')
     if (data != null && code == 200) {
       setBalance(data)
@@ -26,8 +26,19 @@ const Dashboard = () => {
     }
   }
 
+
+
+
+
   useEffect(() => {
-    getBalance();
+    const token = useToken();
+    if (token == null || token == undefined) {
+      navigate('/login')
+    }
+    else {
+      getBalance();
+    }
+
   }, [])
 
 

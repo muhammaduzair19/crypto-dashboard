@@ -1,9 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsCurrencyDollar, TbArrowsExchange2 } from '../utils/Icons.js'
+import { useNavigate } from 'react-router-dom'
+import { useToken } from '../Hooks/useRequest.js'
 
 
 const Exchange = () => {
   const [coin, setCoin] = useState('BTC')
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const token = useToken();
+    if (token == null || token == undefined) {
+      navigate('/login')
+    }
+
+  }, [])
+
   return (
     <main className='w-full h-full flex flex-col gap-5
 pr-2 lg:pr-20

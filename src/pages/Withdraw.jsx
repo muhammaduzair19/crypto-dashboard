@@ -4,6 +4,7 @@ import { BaseUrl, useGetRequest, usePostRequest, useToken } from '../Hooks/useRe
 import copy from '../assets/copy.svg'
 import CopyToClipboard from 'react-copy-to-clipboard';
 import SnackbarAlert from '../components/SnackbarAlert.jsx';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -17,6 +18,7 @@ const Withdraw = () => {
   const [activeTab, setActiveTab] = useState('BSC');
   const [coinData, setCoinData] = useState([])
   const [balance, setBalance] = useState()
+  const navigate = useNavigate()
 
 
   const getAssets = async () => {
@@ -87,8 +89,17 @@ const Withdraw = () => {
     setOpen(false)
   };
 
+
+
   useEffect(() => {
-    getAssets();
+    const token = useToken();
+    if (token == null || token == undefined) {
+      navigate('/login')
+    } else {
+      getAssets();
+
+    }
+
   }, [])
 
 

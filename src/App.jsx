@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import Wallet from './pages/Wallet'
 import Exchange from './pages/Exchange'
@@ -8,21 +8,25 @@ import Deposit from './pages/Deposit'
 import Layout from './layout/Layout'
 import Login from './pages/Login'
 import Transactions from './pages/Transactions'
+import PrivateRoute from './utils/PrivateRoute'
+import { useToken } from './Hooks/useRequest'
 
 const App = () => {
-  const token = localStorage.getItem('token1fx')
+
+
+
   return (
     <Router>
       <Routes>
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={<PrivateRoute><Login /></PrivateRoute>} />
 
-        <Route path='/' element={<Layout />} >
-          <Route path='/' index element={<Dashboard />} />
-          <Route path='/recent-transaction' element={<Transactions />} />
-          <Route path='/wallet' element={<Wallet />} />
-          <Route path='/wallet/exchange' element={<Exchange />} />
-          <Route path='/wallet/withdraw' element={<Withdraw />} />
-          <Route path='/wallet/deposit' element={<Deposit />} />
+        <Route path='/' element={<PrivateRoute><Layout /></PrivateRoute>} >
+          <Route path='/' index element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path='/recent-transaction' element={<PrivateRoute><Transactions /></PrivateRoute>} />
+          <Route path='/wallet' element={<PrivateRoute><Wallet /></PrivateRoute>} />
+          <Route path='/wallet/exchange' element={<PrivateRoute><Exchange /></PrivateRoute>} />
+          <Route path='/wallet/withdraw' element={<PrivateRoute><Withdraw /></PrivateRoute>} />
+          <Route path='/wallet/deposit' element={<PrivateRoute><Deposit /></PrivateRoute>} />
         </Route>
       </Routes>
     </Router>
