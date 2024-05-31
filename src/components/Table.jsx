@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Tag } from 'primereact/tag';
-import { FaEthereum, BsCurrencyDollar } from "../utils/Icons.js";
+import { FaEthereum, BsCurrencyDollar, LuBox } from "../utils/Icons.js";
 import CopyToClipboard from 'react-copy-to-clipboard';
 import copy from '../assets/copy.svg'
 import SnackbarAlert from './SnackbarAlert';
@@ -53,8 +53,8 @@ const Table = ({ limit }) => {
             case 'Ethereum':
                 return <span className='inline-block'><FaEthereum /></span>;
 
-            case 'Dollar':
-                return <span className='inline-block'><BsCurrencyDollar /></span>;
+            case 'Tron':
+                return <span className='inline-block'><LuBox /></span>;
 
 
             default:
@@ -78,13 +78,19 @@ const Table = ({ limit }) => {
     const amountAddressTemplate = (data) => {
         return (
             <div className='flex gap-2'>
-                <p>{data.address}</p>
-                <CopyToClipboard
-                    text={data.address}                >
-                    <img className='cursor-pointer'
-                        onClick={handleClick}
-                        src={copy} alt="" />
-                </CopyToClipboard>
+                {
+                    data.address ? (
+                        <>
+                            <p>{data.address}</p>
+                            <CopyToClipboard
+                                text={data.address}                >
+                                <img className='cursor-pointer'
+                                    onClick={handleClick}
+                                    src={copy} alt="" />
+                            </CopyToClipboard>
+                        </>
+                    ) : (<span>no address found</span>)
+                }
             </div>
         )
     }

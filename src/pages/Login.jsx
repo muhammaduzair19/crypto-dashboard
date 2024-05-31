@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Logo from '../assets/logo.svg';
-import { BaseUrl } from '../Hooks/useRequest';
+import { BaseUrl, usePostRequest } from '../Hooks/useRequest';
 import { useNavigate } from 'react-router-dom';
 import { IoKeyOutline, IoEyeOutline, IoEyeOffOutline, CiMail } from "../utils/Icons.js";
 import SnackbarAlert from '../components/SnackbarAlert.jsx';
@@ -21,17 +21,9 @@ const Login = () => {
         const email = e.target[0].value
         const password = e.target[1].value
         const checked = e.target[2];
-        const url = `${BaseUrl}/login`
-        const results = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password })
-        })
-        const { code, message, data } = await results.json();
+        const { code, data } = await usePostRequest('login', { email, password })
         if (code === 200 && data.token) {
-            localStorage.setItem('token1fx', JSON.stringify(data.token))
+            localStorage.setItem('token1fx', JSON.stringify('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9fdXNlckBnbWFpbC5jb20iLCJpYXQiOjE3MTcxNjA3MjJ9.TZdQGgIXtjSO0lEUP-pjxkspyumBUqFBkaxRqzmQ3tE'))
             setOpen(true)
             setMessage('Login Successfull')
             setSeverity('success')

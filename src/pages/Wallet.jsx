@@ -25,7 +25,6 @@ const Wallet = () => {
 
   useEffect(() => {
     getBalance();
-    getTransactions();
   }, [])
 
 

@@ -41,7 +41,6 @@ const Deposit = () => {
   const getAddress = (blockchain) => {
     const updatedNetwork = networkData?.filter((i) => i.blockchain === blockchain)
     setAddress(updatedNetwork[0].address)
-    getWallet(blockchain);
   }
 
 
