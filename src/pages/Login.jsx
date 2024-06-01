@@ -23,7 +23,7 @@ const Login = () => {
         const checked = e.target[2];
         const { code, data } = await usePostRequest('login', { email, password })
         if (code === 200 && data.token) {
-            localStorage.setItem('token1fx', JSON.stringify('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlbW9fdXNlckBnbWFpbC5jb20iLCJpYXQiOjE3MTcxNjA3MjJ9.TZdQGgIXtjSO0lEUP-pjxkspyumBUqFBkaxRqzmQ3tE'))
+            localStorage.setItem('token1fx', JSON.stringify(data.token))
             setOpen(true)
             setMessage('Login Successfull')
             setSeverity('success')

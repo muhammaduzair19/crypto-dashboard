@@ -18,9 +18,7 @@ const Exchange = () => {
   }, [])
 
   return (
-    <main className='w-full h-full flex flex-col gap-5
-pr-2 lg:pr-20
-    '>
+    <main className='w-full h-full flex flex-col gap-5 pr-2 lg:pr-20'>
       <header>
 
         <h1 className='text-4xl font-bold text-darker-600'>
