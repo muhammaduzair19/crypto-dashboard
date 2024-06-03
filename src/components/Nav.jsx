@@ -1,11 +1,43 @@
 import React, { useEffect, useState } from 'react'
 import { IoEyeOffOutline, IoEyeOutline, HiOutlineBell, HiMiniMagnifyingGlass, FaRegCircleUser } from '../utils/Icons.js';
 import DropDown from './DropDown.jsx';
+import { useToken } from '../Hooks/useRequest.js';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Nav = () => {
     const [showBalance, setShowBalance] = useState(false)
+    const [balance, setBalance] = useState();
+    const navigate = useNavigate()
+
+    const getBalance = async () => {
+        const { data, code } = await useGetRequest('balance')
+        console.log(data, '=> data');
+        if (data != null && code == 200) {
+            setBalance(data)
+        }
+        else {
+            setBalance([])
+        }
+    }
+
+
+
+
+
+    useEffect(() => {
+        const token = useToken();
+        if (token == null || token == undefined) {
+            navigate('/login')
+        }
+        else {
+            getBalance();
+        }
+
+    }, [])
+
+
 
 
 
@@ -33,7 +65,7 @@ const Nav = () => {
                     <div className='flex flex-col items-end'>
                         <span className='text-[#575979] text-sm'>Total Balance</span>
 
-                        <span className='font-bold text-white'>{showBalance ? '$ 0' : '*******'}</span>
+                        <span className='font-bold text-white'>{showBalance ? `$ ${balance ? balance : '0'}` : '*******'}</span>
                     </div>
 
                 </div>
