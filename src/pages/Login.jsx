@@ -13,23 +13,50 @@ const Login = () => {
     const [open, setOpen] = useState(false);
     const [severity, setSeverity] = useState('');
     const [message, setMessage] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
 
+    const validate = (email, password) => {
+        console.log(email, password);
+        const errors = {};
+
+        if (!email) {
+            errors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            errors.email = 'Email is invalid';
+        }
+
+        if (!password) {
+            errors.password = 'Password is required';
+        } else if (password.length < 6) {
+            errors.password = 'Password must be at least 6 characters';
+        }
+
+        console.log(errors);
+
+        return errors;
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const email = e.target[0].value
         const password = e.target[1].value
-        const checked = e.target[2];
-        const { code, data } = await usePostRequest('login', { email, password })
-        if (code === 200 && data.token) {
-            localStorage.setItem('token1fx', JSON.stringify(data.token))
-            setOpen(true)
-            setMessage('Login Successfull')
-            setSeverity('success')
-            navigate('/')
+        const validationErrors = validate(email, password);
+        setErrors(validationErrors);
+
+        if (Object.keys(validationErrors).length === 0) {
+            console.log('Form submitted:', { email, password });
+            const { code, data } = await usePostRequest('login', { email, password })
+            if (code === 200 && data.token) {
+                localStorage.setItem('token1fx', JSON.stringify(data.token))
+                setOpen(true)
+                setMessage('Login Successfull')
+                setSeverity('success')
+                navigate('/')
+            }
         }
-    }
+    };
+
 
     const handleClose = () => {
         setOpen(false)
@@ -54,14 +81,16 @@ const Login = () => {
                         <CiMail className='text-white' size={35} />
                         <div className='flex flex-col text-white w-full'>
                             <span className='text-xs sm:text-sm'>E-mail</span>
-                            <input type="email" placeholder='enter email' className='w-full bg-transparent outline-none font-bold' />
+                            <input required type="email" placeholder='enter email' className='w-full bg-transparent outline-none font-bold' />
                         </div>
+
                     </div>
+                    {errors.email && <p className='text-xs text-red-600 -mt-4'>{errors.email}</p>}
                     <div className='w-full px-4 py-2 rounded-2xl flex items-center gap-3 bg-[#34395C] '>
                         <IoKeyOutline className='text-white' size={35} />
                         <div className='flex flex-col text-white w-full'>
                             <span className='text-xs sm:text-sm'>Password</span>
-                            <input type={showPassword ? 'text' : 'password'} placeholder='enter password' className='w-full bg-transparent outline-none font-bold' />
+                            <input required type={showPassword ? 'text' : 'password'} placeholder='enter password' className='w-full bg-transparent outline-none font-bold' />
                         </div>
                         {
                             showPassword ? (<IoEyeOutline
@@ -70,8 +99,8 @@ const Login = () => {
 
                             )
                         }
-
                     </div>
+                    {errors.password && <p className='text-xs text-red-600 -mt-4'>{errors.password}</p>}
                     <div className='flex justify-between items-center'>
                         <div className='flex gap-2 text-white'>
                             <input type="checkbox" name="remember" value={true} />
