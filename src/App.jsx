@@ -1,15 +1,26 @@
-import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom'
-import Dashboard from './pages/Dashboard'
-import Wallet from './pages/Wallet'
-import Exchange from './pages/Exchange'
-import Withdraw from './pages/Withdraw'
-import Deposit from './pages/Deposit'
-import Layout from './layout/Layout'
-import Login from './pages/Login'
-import Transactions from './pages/Transactions'
+import React, { Suspense, lazy } from 'react'
+import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom'
+
 import PrivateRoute from './utils/PrivateRoute'
-import { useToken } from './Hooks/useRequest'
+import Loading from './pages/Loading'
+
+// import Dashboard from './pages/Dashboard'
+// import Wallet from './pages/Wallet'
+// import Exchange from './pages/Exchange'
+// import Withdraw from './pages/Withdraw'
+// import Deposit from './pages/Deposit'
+// import Layout from './layout/Layout'
+// import Login from './pages/Login'
+// import Transactions from './pages/Transactions'
+
+const Dashboard = lazy(() => import('./pages/Dashboard'))
+const Wallet = lazy(() => import('./pages/Wallet'))
+const Exchange = lazy(() => import('./pages/Exchange'))
+const Withdraw = lazy(() => import('./pages/Withdraw'))
+const Deposit = lazy(() => import('./pages/Deposit'))
+const Layout = lazy(() => import('./layout/Layout'))
+const Login = lazy(() => import('./pages/Login'))
+const Transactions = lazy(() => import('./pages/Transactions'))
 
 const App = () => {
 
@@ -17,18 +28,20 @@ const App = () => {
 
   return (
     <Router>
-      <Routes>
-        <Route path='/login' element={<PrivateRoute><Login /></PrivateRoute>} />
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path='/login' element={<PrivateRoute><Login /></PrivateRoute>} />
 
-        <Route path='/' element={<PrivateRoute><Layout /></PrivateRoute>} >
-          <Route path='/' index element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path='/recent-transaction' element={<PrivateRoute><Transactions /></PrivateRoute>} />
-          <Route path='/wallet' element={<PrivateRoute><Wallet /></PrivateRoute>} />
-          <Route path='/wallet/exchange' element={<PrivateRoute><Exchange /></PrivateRoute>} />
-          <Route path='/wallet/withdraw' element={<PrivateRoute><Withdraw /></PrivateRoute>} />
-          <Route path='/wallet/deposit' element={<PrivateRoute><Deposit /></PrivateRoute>} />
-        </Route>
-      </Routes>
+          <Route path='/' element={<PrivateRoute><Layout /></PrivateRoute>} >
+            <Route path='/' index element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+            <Route path='/recent-transaction' element={<PrivateRoute><Transactions /></PrivateRoute>} />
+            <Route path='/wallet' element={<PrivateRoute><Wallet /></PrivateRoute>} />
+            <Route path='/wallet/exchange' element={<PrivateRoute><Exchange /></PrivateRoute>} />
+            <Route path='/wallet/withdraw' element={<PrivateRoute><Withdraw /></PrivateRoute>} />
+            <Route path='/wallet/deposit' element={<PrivateRoute><Deposit /></PrivateRoute>} />
+          </Route>
+        </Routes>
+      </Suspense>
     </Router>
   )
 }

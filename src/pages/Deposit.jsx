@@ -86,7 +86,7 @@ const Deposit = () => {
           Deposit Crypto
         </h1>
       </header>
-      <div className='w-1/2 flex flex-col gap-5'>
+      <div className='w-full md:w-[70%] lg:w-1/2 px-3 flex flex-col gap-5'>
         <div className='flex flex-col gap-4'>
           <h2 className='text-2xl text-darker-600 font-bold'>Deposity Address</h2>
           <form className='flex flex-col gap-3'>

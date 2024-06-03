@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '520px', // min-width: 520px
+      },
       textColor: {
         'darker-950': '#191C2F',
         'darker-900': '#23273F',

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { IoEyeOffOutline, IoEyeOutline, HiOutlineBell, HiMiniMagnifyingGlass } from '../utils/Icons.js';
+import { IoEyeOffOutline, IoEyeOutline, HiOutlineBell, HiMiniMagnifyingGlass, FaRegCircleUser } from '../utils/Icons.js';
 import DropDown from './DropDown.jsx';
 
 
@@ -12,7 +12,7 @@ const Nav = () => {
 
     return (
         <nav className='w-full h-full px-2 bg-transparent flex justify-between py-5'>
-            <div className='bg-[#34395C] rounded-2xl w-[50%] sm:w-[35%] px-2 flex items-center'>
+            <div className='bg-[#34395C] rounded-2xl w-full xs:w-1/2 sm:w-[35%] px-2 flex items-center'>
                 <HiMiniMagnifyingGlass color='#575979' size={25} />
                 <input type="text" placeholder='Search' className='w-full text-white p-2 outline-none bg-transparent placeholder:text-white' />
             </div>
@@ -38,11 +38,11 @@ const Nav = () => {
 
                 </div>
                 <div
-                    className="w-10 h-10 md:w-12 md:h-12 rounded-xl cursor-pointer text-white bg-[#34395C] flex items-center justify-center">
+                    className="hidden xs:flex w-10 h-10 md:w-12 md:h-12 rounded-xl cursor-pointer text-white bg-[#34395C]    items-center justify-center">
                     <HiOutlineBell size={25} />
                 </div>
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl text-white bg-[#34395C] flex items-center justify-center overflow-hidden">
-                    <img src="https://www.shutterstock.com/image-photo/head-shot-portrait-close-smiling-600nw-1714666150.jpg" alt="profile img" className='w-full h-full object-cover' />
+                <div className="hidden xs:flex w-10 h-10 md:w-12 md:h-12 rounded-xl text-white bg-[#34395C]  items-center justify-center overflow-hidden">
+                    <FaRegCircleUser size={25} />
                 </div>
                 <DropDown />
             </div>

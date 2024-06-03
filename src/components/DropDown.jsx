@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AiOutlineLogout, BsThreeDotsVertical } from '../utils/Icons'
+import { AiOutlineLogout, HiOutlineBell, BsThreeDotsVertical, FaRegCircleUser } from '../utils/Icons'
 import { useNavigate } from 'react-router-dom';
 import { useToken } from '../Hooks/useRequest';
 
@@ -34,11 +34,23 @@ const DropDown = () => {
             {isOpen && (
                 <div className="absolute right-0 z-10 mt-2 w-48 overflow-hidden rounded-xl shadow-lg">
                     <button
-                        className="flex items-center gap-2 w-full  px-4 py-2 text-left text-lg font-bold text-white  bg-darker-800"
+                        className="cursor-pointer flex items-center gap-2 w-full  px-4 py-2 text-left text-lg  text-white  bg-darker-800"
                         onClick={logoutHandler}>
-                        <AiOutlineLogout /> 
+                        <FaRegCircleUser />
+                        <span className='hover:text-darker-500'>Profile</span>
+                    </button>
+                    <button className="cursor-pointer flex items-center gap-2 w-full  px-4 py-2 text-left text-lg  text-white  bg-darker-800"
+                        onClick={logoutHandler}>
+                        <HiOutlineBell />
+                        <span className='hover:text-darker-500'>Notifications</span>
+                    </button>
+                    <button
+                        className="cursor-pointer flex items-center gap-2 w-full  px-4 py-2 text-left text-lg  text-white  bg-darker-800"
+                        onClick={logoutHandler}>
+                        <AiOutlineLogout />
                         <span className='hover:text-darker-500'>Logout</span>
                     </button>
+
                 </div>
             )}
         </div>

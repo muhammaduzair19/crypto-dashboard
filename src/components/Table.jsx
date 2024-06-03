@@ -7,23 +7,36 @@ import { FaEthereum, BsCurrencyDollar, LuBox } from "../utils/Icons.js";
 import CopyToClipboard from 'react-copy-to-clipboard';
 import copy from '../assets/copy.svg'
 import SnackbarAlert from './SnackbarAlert';
-import { useGetRequest } from '../Hooks/useRequest.js';
+import { useGetRequest, useToken } from '../Hooks/useRequest.js';
+import { useNavigate } from 'react-router-dom';
 
 const Table = ({ limit }) => {
 
     const [open, setOpen] = useState(false);
-    const [data, setData] = useState()
+    const [data, setData] = useState();
+    const navigate = useNavigate()
 
 
 
     const getTransactions = async () => {
-        const result = await useGetRequest('transactions');
-        setData(result?.data)
+        const { data, code } = await useGetRequest('transactions');
+        if (data != null && code == 200) {
+            setData(data)
+        }
+        else {
+            setData([])
+        }
     }
 
 
     useEffect(() => {
-        getTransactions()
+        const token = useToken();
+        if (token == null || token == undefined) {
+            navigate('/login')
+        }
+        else {
+            getTransactions()
+        }
     }, [])
 
     const getSeverity = (data) => {

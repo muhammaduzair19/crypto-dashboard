@@ -115,8 +115,8 @@ const Withdraw = () => {
       </header>
 
       <div className='flex w-full flex-col'>
-        <div className='flex w-full flex-wrap gap-3'>
-          <div className='w-[54%] h-44 flex-col flex gap-4'>
+        <div className=' flex flex-col md:flex-row w-full gap-3'>
+          <div className='w-full md:w-[70%] lg:w-1/2 px-3 h-44 flex-col flex gap-4'>
             <h2 className='text-2xl text-darker-600 font-bold'>Deposity Address</h2>
             <div className='flex gap-2'>
               <p className='text-darker-400'>{address != '' ? address : 'No address found'}</p>
@@ -150,14 +150,15 @@ const Withdraw = () => {
               </label>
             </div>
           </div>
-          <div className='w-[44%] flex flex-col gap-4 h-44 justify-between pb-4'>
+
+          <div className='w-full md:w-[70%] lg:w-1/2 px-3 flex flex-col gap-4 h-44 justify-between pb-4'>
             <h2 className='text-2xl text-darker-600 font-bold'>Wallet Info</h2>
             <h4 className='font-semibold text-darker-400'>{balance?.blockchain}  {balance?.symbol && `(${balance?.symbol})`}</h4>
             <h4 className='font-semibold text-darker-400'>Current Balance</h4>
             <h2 className='font-semibold text-3xl text-darker-400'>{balance?.tokens} </h2>
           </div>
         </div>
-        <div className='w-[54%] h-full bg-transparent flex flex-col gap-2'>
+        <div className='w-full md:w-[70%] lg:w-1/2 px-3 h-full bg-transparent flex flex-col gap-2'>
           <h2 className='text-2xl text-darker-600 font-bold'>Transfer Network</h2>
           <p className='font-semibold text-white mb-1 text-md'>Select Network</p>
 

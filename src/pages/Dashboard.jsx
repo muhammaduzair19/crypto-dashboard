@@ -18,6 +18,7 @@ const Dashboard = () => {
 
   const getBalance = async () => {
     const { data, code } = await useGetRequest('wallets')
+    console.log(data, '=> data');
     if (data != null && code == 200) {
       setBalance(data)
     }
