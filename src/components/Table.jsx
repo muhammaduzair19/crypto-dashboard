@@ -64,10 +64,10 @@ const Table = ({ limit }) => {
     const getIcon = (data) => {
         switch (data.network) {
             case 'Ethereum':
-                return <span className='inline-block'><FaEthereum /></span>;
+                return <span className='hidden md:inline-block'><FaEthereum /></span>;
 
             case 'Tron':
-                return <span className='inline-block'><LuBox /></span>;
+                return <span className='hidden md:inline-block'><LuBox /></span>;
 
 
             default:
@@ -76,7 +76,7 @@ const Table = ({ limit }) => {
     }
 
     const iconBodyTemplate = (data) => {
-        return <Tag className={`capitalize font-semibold  px-3 text-sm rounded-full`} >
+        return <Tag className={`capitalize font-semibold  px-3 text-xs md:text-sm rounded-full`} >
             {getIcon(data)} {data?.network}  <span className='font-normal uppercase'>{data.currency}</span>
         </Tag>;
     };
@@ -85,7 +85,7 @@ const Table = ({ limit }) => {
     };
 
     const amountColorTemplate = (data) => {
-        return <Tag value={data.amount} className={`uppercase font-semibold px-3 text-sm rounded-full ${getColor(data)}`} ></Tag>;
+        return <Tag value={data.amount} className={`uppercase font-semibold px-3 text-xs md:text-sm rounded-full ${getColor(data)}`} ></Tag>;
     };
 
     const amountAddressTemplate = (data) => {
@@ -94,10 +94,10 @@ const Table = ({ limit }) => {
                 {
                     data.address ? (
                         <>
-                            <p>{data.address}</p>
+                            <p className='text-xs md:text-sm truncate'>{data.address}</p>
                             <CopyToClipboard
                                 text={data.address}                >
-                                <img className='cursor-pointer'
+                                <img className='cursor-pointer w-4'
                                     onClick={handleClick}
                                     src={copy} alt="" />
                             </CopyToClipboard>
@@ -126,7 +126,7 @@ const Table = ({ limit }) => {
             <DataTable value={limit ? data?.slice(0, limit) : data} className='text-darker-400 px-3'>
                 <Column field="currency" body={iconBodyTemplate} header="Currency"></Column>
                 <Column field="address" body={amountAddressTemplate} header="Address"></Column>
-                <Column field="status" body={statusBodyTemplate} header="Status"></Column>
+                <Column field="status" bodyClassName='md:block hidden' headerClassName='md:block hidden' body={statusBodyTemplate} header="Status"></Column>
                 <Column field="amount" body={amountColorTemplate} header="Amount"></Column>
             </DataTable>
         </div>

@@ -34,13 +34,11 @@ const DropDown = () => {
             {isOpen && (
                 <div className="absolute right-0 z-10 mt-2 w-48 overflow-hidden rounded-xl shadow-lg">
                     <button
-                        className="cursor-pointer flex items-center gap-2 w-full  px-4 py-2 text-left text-lg  text-white  bg-darker-800"
-                        onClick={logoutHandler}>
+                        className="xs:hidden cursor-pointer flex items-center gap-2 w-full  px-4 py-2 text-left text-lg  text-white  bg-darker-800">
                         <FaRegCircleUser />
                         <span className='hover:text-darker-500'>Profile</span>
                     </button>
-                    <button className="cursor-pointer flex items-center gap-2 w-full  px-4 py-2 text-left text-lg  text-white  bg-darker-800"
-                        onClick={logoutHandler}>
+                    <button className="xs:hidden cursor-pointer flex items-center gap-2 w-full  px-4 py-2 text-left text-lg  text-white  bg-darker-800">
                         <HiOutlineBell />
                         <span className='hover:text-darker-500'>Notifications</span>
                     </button>

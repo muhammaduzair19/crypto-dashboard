@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Logo from '../assets/logo.svg';
-import { BaseUrl, usePostRequest } from '../Hooks/useRequest';
+import { usePostRequest } from '../Hooks/useRequest';
 import { useNavigate } from 'react-router-dom';
 import { IoKeyOutline, IoEyeOutline, IoEyeOffOutline, CiMail } from "../utils/Icons.js";
 import SnackbarAlert from '../components/SnackbarAlert.jsx';
@@ -15,9 +15,14 @@ const Login = () => {
     const [message, setMessage] = useState(false);
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
+    const rememberMeRef = useRef(null);
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
 
-    const validate = (email, password) => {
-        console.log(email, password);
+
+    const validate = ({ email, password }) => {
+        console.log(email, "email");
+        console.log(password, "password");
         const errors = {};
 
         if (!email) {
@@ -39,16 +44,20 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const email = e.target[0].value
-        const password = e.target[1].value
-        const validationErrors = validate(email, password);
+        const formData = {
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+            rememberMe: rememberMeRef.current.checked,
+        };
+        console.log("formData ==>", formData)
+
+        const validationErrors = validate(formData);
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
-            console.log('Form submitted:', { email, password });
-            const { code, data } = await usePostRequest('login', { email, password })
-            if (code === 200 && data.token) {
-                localStorage.setItem('token1fx', JSON.stringify(data.token))
+            const { code, data } = await usePostRequest('login', formData)
+            if (code === 200 && data) {
+                localStorage.setItem('token1fx', JSON.stringify(data))
                 setOpen(true)
                 setMessage('Login Successfull')
                 setSeverity('success')
@@ -81,7 +90,7 @@ const Login = () => {
                         <CiMail className='text-white' size={35} />
                         <div className='flex flex-col text-white w-full'>
                             <span className='text-xs sm:text-sm'>E-mail</span>
-                            <input required type="email" placeholder='enter email' className='w-full bg-transparent outline-none font-bold' />
+                            <input ref={emailRef} required type="email" placeholder='enter email' className='w-full bg-transparent outline-none font-bold' />
                         </div>
 
                     </div>
@@ -90,7 +99,7 @@ const Login = () => {
                         <IoKeyOutline className='text-white' size={35} />
                         <div className='flex flex-col text-white w-full'>
                             <span className='text-xs sm:text-sm'>Password</span>
-                            <input required type={showPassword ? 'text' : 'password'} placeholder='enter password' className='w-full bg-transparent outline-none font-bold' />
+                            <input ref={passwordRef} required type={showPassword ? 'text' : 'password'} placeholder='enter password' className='w-full bg-transparent outline-none font-bold' />
                         </div>
                         {
                             showPassword ? (<IoEyeOutline
@@ -103,7 +112,7 @@ const Login = () => {
                     {errors.password && <p className='text-xs text-red-600 -mt-4'>{errors.password}</p>}
                     <div className='flex justify-between items-center'>
                         <div className='flex gap-2 text-white'>
-                            <input type="checkbox" name="remember" value={true} />
+                            <input defaultChecked type="checkbox" name="remember" className='cursor-pointer' ref={rememberMeRef} />
                             <span className='text-xs sm:text-sm'>Remember me</span>
                         </div>
                         <p className='text-xs sm:text-sm text-[#6A74CC]'>
