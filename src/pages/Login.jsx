@@ -4,6 +4,7 @@ import { usePostRequest } from '../Hooks/useRequest';
 import { useNavigate } from 'react-router-dom';
 import { IoKeyOutline, IoEyeOutline, IoEyeOffOutline, CiMail } from "../utils/Icons.js";
 import SnackbarAlert from '../components/SnackbarAlert.jsx';
+import useValidation from '../Hooks/useValidation.js';
 
 
 
@@ -20,28 +21,6 @@ const Login = () => {
     const passwordRef = useRef(null);
 
 
-    const validate = ({ email, password }) => {
-        console.log(email, "email");
-        console.log(password, "password");
-        const errors = {};
-
-        if (!email) {
-            errors.email = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(email)) {
-            errors.email = 'Email is invalid';
-        }
-
-        if (!password) {
-            errors.password = 'Password is required';
-        } else if (password.length < 6) {
-            errors.password = 'Password must be at least 6 characters';
-        }
-
-        console.log(errors);
-
-        return errors;
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = {
@@ -49,9 +28,8 @@ const Login = () => {
             password: passwordRef.current.value,
             rememberMe: rememberMeRef.current.checked,
         };
-        console.log("formData ==>", formData)
 
-        const validationErrors = validate(formData);
+        const validationErrors = useValidation(formData);
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
