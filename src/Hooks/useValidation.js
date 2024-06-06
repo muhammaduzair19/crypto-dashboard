@@ -1,5 +1,5 @@
-const useValidation = ({ email, password }) => {
-    
+export const useLoginValidation = ({ email, password }) => {
+
     console.log(email, "email");
     console.log(password, "password");
     const errors = {};
@@ -20,5 +20,24 @@ const useValidation = ({ email, password }) => {
     return errors;
 };
 
+export const useConfirmPasswordValidation = ({ password, confirmPassword }) => {
 
-export default useValidation;
+    console.log(password, "password");
+    console.log(confirmPassword, "confirmPassword");
+    const errors = {};
+
+    if (!password && !confirmPassword) {
+        errors.password = 'Password is required';
+    } else if (password.length < 6) {
+        errors.password = 'Password must be at least 6 characters';
+    }
+    else if (password.length !== confirmPassword.length) {
+        errors.confirmPassword = 'Passwords should match';
+    }
+    else if (password !== confirmPassword) {
+        errors.confirmPassword = 'Passwords should match';
+    }
+
+    return errors;
+};
+

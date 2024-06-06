@@ -10,11 +10,7 @@ const PrivateRoute = ({ children }) => {
             setToken(storedToken)
             navigate('/')
         }
-        else {
-            console.log(token);
-            navigate('/login')
-        }
-
+   
     }, [])
 
 

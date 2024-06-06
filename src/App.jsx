@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom'
 import PrivateRoute from './utils/PrivateRoute'
 import Loading from './pages/Loading'
 
+// import ResetPassword from './pages/ResetPassword'
 // import Dashboard from './pages/Dashboard'
 // import Wallet from './pages/Wallet'
 // import Exchange from './pages/Exchange'
@@ -20,6 +21,8 @@ const Withdraw = lazy(() => import('./pages/Withdraw'))
 const Deposit = lazy(() => import('./pages/Deposit'))
 const Layout = lazy(() => import('./layout/Layout'))
 const Login = lazy(() => import('./pages/Login'))
+const Forget = lazy(() => import('./pages/ForgetPassword'))
+const Reset = lazy(() => import('./pages/ResetPassword'))
 const Transactions = lazy(() => import('./pages/Transactions'))
 
 const App = () => {
@@ -31,6 +34,8 @@ const App = () => {
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path='/login' element={<PrivateRoute><Login /></PrivateRoute>} />
+          <Route path='/forget-password' element={<PrivateRoute><Forget /></PrivateRoute>} />
+          <Route path='/reset-password' element={<PrivateRoute><Reset /></PrivateRoute>} />
 
           <Route path='/' element={<PrivateRoute><Layout /></PrivateRoute>} >
             <Route path='/' index element={<PrivateRoute><Dashboard /></PrivateRoute>} />
