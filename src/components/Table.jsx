@@ -7,7 +7,7 @@ import { FaEthereum, BsCurrencyDollar, LuBox } from "../utils/Icons.js";
 import CopyToClipboard from 'react-copy-to-clipboard';
 import copy from '../assets/copy.svg'
 import SnackbarAlert from './SnackbarAlert';
-import { useGetRequest, useToken } from '../Hooks/useRequest.js';
+import { useGetRequest, usePostRequest, useToken } from '../Hooks/useRequest.js';
 import { useNavigate } from 'react-router-dom';
 
 const Table = ({ limit }) => {
@@ -19,7 +19,7 @@ const Table = ({ limit }) => {
 
 
     const getTransactions = async () => {
-        const { data, code } = await useGetRequest('transactions');
+        const { data, code } = useGetRequest('transactions');
         if (data != null && code == 200) {
             setData(data)
         }

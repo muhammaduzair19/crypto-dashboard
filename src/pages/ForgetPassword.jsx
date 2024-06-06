@@ -3,6 +3,7 @@ import Logo from '../assets/logo.svg';
 import { Link } from 'react-router-dom';
 import SnackbarAlert from '../components/SnackbarAlert.jsx';
 import { CiMail } from "../utils/Icons.js";
+import { usePostRequest } from '../Hooks/useRequest.js';
 
 
 
@@ -19,8 +20,22 @@ const ForgotPassword = () => {
             email: emailRef.current.value,
         };
         console.log(formData);
+
+        const result = await usePostRequest('forget-password', formData);
+        console.log(result)
+        const { code, message } = result;
+        if (code === 200) {
+            emailRef.current.value = ''
+            setOpen(true);
+            setMessage(message);
+            setSeverity('success');
+        } else {
+            setOpen(true);
+            setMessage(message);
+            setSeverity('error');
+        }
     };
-    
+
 
     const handleClose = () => {
         setOpen(false);

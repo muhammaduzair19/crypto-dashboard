@@ -20,7 +20,7 @@ export const useLoginValidation = ({ email, password }) => {
     return errors;
 };
 
-export const useConfirmPasswordValidation = ({ password, confirmPassword }) => {
+export const useConfirmPasswordValidation = (password, confirmPassword) => {
 
     console.log(password, "password");
     console.log(confirmPassword, "confirmPassword");

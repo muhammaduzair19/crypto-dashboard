@@ -7,7 +7,7 @@ import BalanceCard from '../components/BalanceCard';
 import CurrencyCard from '../components/CurrencyCard';
 
 import { IoArrowForwardOutline } from '../utils/Icons.js'
-import { BaseUrl, useGetRequest, useToken } from '../Hooks/useRequest.js';
+import { BaseUrl, useGetRequest, usePostRequest, useToken } from '../Hooks/useRequest.js';
 
 
 const Dashboard = () => {

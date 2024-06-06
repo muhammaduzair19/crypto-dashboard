@@ -31,6 +31,7 @@ const Login = () => {
         if (Object.keys(validationErrors).length === 0) {
             const result = await usePostRequest('login', formData);
             const { data, code } = result;
+            console.log(result);
             if (code === 200 && data) {
                 localStorage.setItem('token1fx', JSON.stringify(data));
                 setOpen(true);
@@ -88,7 +89,7 @@ const Login = () => {
                     {errors.password && <p className='text-xs text-red-600 -mt-4'>{errors.password}</p>}
                     <div className='flex justify-between items-center'>
                         <div className='flex gap-2 text-white'>
-                            <input defaultChecked type="checkbox" name="remember" className='cursor-pointer' ref={rememberMeRef} />
+                            <input type="checkbox" name="remember" className='cursor-pointer' ref={rememberMeRef} />
                             <span className='text-xs sm:text-sm'>Remember me</span>
                         </div>
                         <Link to={'/forget-password'} className='text-xs sm:text-sm text-[#6A74CC]'>
@@ -102,7 +103,7 @@ const Login = () => {
 
                 <div className='flex text-white justify-center text-sm sm:text-md'>
                     <p>Don't have an Account?</p>
-                    <Link to={'/register'} className='text-[#6A74CC] ml-1'>
+                    <Link to={'/login'} className='text-[#6A74CC] ml-1 font-bold'>
                         Register
                     </Link>
                 </div>

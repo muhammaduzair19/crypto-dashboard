@@ -1,14 +1,11 @@
-// export const BaseUrl = "http://192.168.18.11:5000"
-// export const BaseUrl = "https://ce06-2400-adc1-192-4a00-8125-9a73-e63a-ddcd.ngrok-free.app"
-export const BaseUrl = "http://24.199.99.6:9002"
+// export const BaseUrl = "http://192.168.18.205:5000"
+export const BaseUrl = "https://21e2-2400-adc1-16f-8c00-3d74-8d00-705d-2e3d.ngrok-free.app"
+// export const BaseUrl = "http://24.199.99.6:9002"
 
 
 export const useGetRequest = async (endpoints) => {
-    console.log(endpoints, 'endpoints');
     const url = `${BaseUrl}/${endpoints}`;
     const token = useToken();
-    console.log(url, '=> url');
-    console.log(token, 'token');
     const results = await fetch(url, {
         method: 'GET',
         headers: {
@@ -16,14 +13,44 @@ export const useGetRequest = async (endpoints) => {
             'Authorization': `Bearer ${token}`,
         },
     });
-    console.log(results);
-    return await results.json();
+    const result = await results.json();
+    const { code } = result;
+    console.log(code, 'code')
+
+    if (code === 401) {
+        localStorage.removeItem('token1fx')
+        return
+    }
+
+    return result;
 };
 
 
 export const usePostRequest = async (endpoints, body) => {
     const url = `${BaseUrl}/${endpoints}`;
     const token = useToken();
+    const results = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(body)
+    })
+    const result = await results.json();
+    const { code } = result;
+    console.log(code, 'code')
+
+    if (code === 401) {
+        localStorage.removeItem('token1fx')
+        return
+    }
+
+    return result;
+};
+
+export const useResetPasswordRequest = async (endpoints, token, body) => {
+    const url = `${BaseUrl}/${endpoints}`;
     const results = await fetch(url, {
         method: 'POST',
         headers: {
