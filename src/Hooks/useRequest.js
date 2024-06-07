@@ -1,6 +1,4 @@
-// export const BaseUrl = "http://192.168.18.205:5000"
-export const BaseUrl = "https://21e2-2400-adc1-16f-8c00-3d74-8d00-705d-2e3d.ngrok-free.app"
-// export const BaseUrl = "http://24.199.99.6:9002"
+export const BaseUrl = "http://24.199.99.6:9002"
 
 
 export const useGetRequest = async (endpoints) => {
