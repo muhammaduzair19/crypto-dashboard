@@ -3,7 +3,7 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import SnackbarAlert from '../components/SnackbarAlert'
 import copy from '../assets/copy.svg'
 import { BsCurrencyDollar } from '../utils/Icons.js'
-import { useGetRequest, usePostRequest, useToken } from '../Hooks/useRequest.js'
+import { useGetRequest, useToken } from '../Hooks/useRequest.js'
 import { useNavigate } from 'react-router-dom'
 
 const Deposit = () => {

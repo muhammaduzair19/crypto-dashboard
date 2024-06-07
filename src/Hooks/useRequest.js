@@ -13,7 +13,6 @@ export const useGetRequest = async (endpoints) => {
     });
     const result = await results.json();
     const { code } = result;
-    console.log(code, 'code')
 
     if (code === 401) {
         localStorage.removeItem('token1fx')
@@ -37,7 +36,6 @@ export const usePostRequest = async (endpoints, body) => {
     })
     const result = await results.json();
     const { code } = result;
-    console.log(code, 'code')
 
     if (code === 401) {
         localStorage.removeItem('token1fx')

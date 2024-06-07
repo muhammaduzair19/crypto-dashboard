@@ -7,7 +7,7 @@ import { FaEthereum, BsCurrencyDollar, LuBox } from "../utils/Icons.js";
 import CopyToClipboard from 'react-copy-to-clipboard';
 import copy from '../assets/copy.svg'
 import SnackbarAlert from './SnackbarAlert';
-import { useGetRequest, usePostRequest, useToken } from '../Hooks/useRequest.js';
+import { useGetRequest, useToken } from '../Hooks/useRequest.js';
 import { useNavigate } from 'react-router-dom';
 
 const Table = ({ limit }) => {
@@ -19,7 +19,7 @@ const Table = ({ limit }) => {
 
 
     const getTransactions = async () => {
-        const { data, code } = useGetRequest('transactions');
+        const { data, code } = await useGetRequest('transactions');
         if (data != null && code == 200) {
             setData(data)
         }
@@ -77,7 +77,7 @@ const Table = ({ limit }) => {
 
     const iconBodyTemplate = (data) => {
         return <Tag className={`capitalize font-semibold  px-3 text-xs md:text-sm rounded-full`} >
-            {getIcon(data)} {data?.network}  <span className='font-normal uppercase'>{data.currency}</span>
+            {getIcon(data)} {data?.network}  <span className='font-normal hidden sm:inline-block uppercase'>{data.currency}</span>
         </Tag>;
     };
     const statusBodyTemplate = (data) => {
@@ -94,7 +94,8 @@ const Table = ({ limit }) => {
                 {
                     data.address ? (
                         <>
-                            <p className='text-xs md:text-sm truncate'>{data.address}</p>
+                            <p className='text-xs hidden xs:block md:text-sm truncate'>{data.address}</p>
+                            <p className='text-xs block xs:hidden md:text-sm truncate'>{data.address.slice(0, 20)}...</p>
                             <CopyToClipboard
                                 text={data.address}                >
                                 <img className='cursor-pointer w-4'

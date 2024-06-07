@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { IoCheckmark, BsCurrencyDollar } from "../utils/Icons.js";
-import { BaseUrl, useGetRequest, usePostRequest, useToken } from '../Hooks/useRequest';
+import { useGetRequest, usePostRequest, useToken } from '../Hooks/useRequest';
 import copy from '../assets/copy.svg'
 import CopyToClipboard from 'react-copy-to-clipboard';
 import SnackbarAlert from '../components/SnackbarAlert.jsx';

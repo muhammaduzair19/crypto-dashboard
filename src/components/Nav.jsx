@@ -13,7 +13,6 @@ const Nav = () => {
 
     const getBalance = async () => {
         const { data, code } = await useGetRequest('balance')
-        console.log(data, '=> data');
         if (data != null && code == 200) {
             setBalance(data)
         }

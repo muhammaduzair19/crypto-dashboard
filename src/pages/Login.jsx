@@ -31,7 +31,6 @@ const Login = () => {
         if (Object.keys(validationErrors).length === 0) {
             const result = await usePostRequest('login', formData);
             const { data, code } = result;
-            console.log(result);
             if (code === 200 && data) {
                 localStorage.setItem('token1fx', JSON.stringify(data));
                 setOpen(true);

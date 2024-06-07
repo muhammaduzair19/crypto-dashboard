@@ -30,27 +30,19 @@ const ResetPassword = () => {
 
         const validationErrors = useConfirmPasswordValidation(password, confirmPassword);
         setErrors(validationErrors);
-        console.log(validationErrors);
 
-        if (Object.keys(validationErrors).length === 0) {
-            const result = await useResetPasswordRequest('reset-password ', token, { password });
-            const { message, code } = result;
-            console.log(result);
+        if (!Object.keys(validationErrors).length) {
+            const { message, code } = await useResetPasswordRequest('reset-password', token, { password });
+
+            setOpen(true);
+            setMessage(code === 200 ? 'Password Reset Successfully' : message);
+            setSeverity(code === 200 ? 'success' : 'error');
+
             if (code === 200) {
-                setOpen(true);
-                setMessage('Password Reset Successfully');
-                setSeverity('success');
-                setTimeout(() => {
-                    navigate('/login');
-                }, 2000)
-            } else {
-                setOpen(true);
-                setMessage(message);
-                setSeverity('error');
+                setTimeout(() => navigate('/login'), 2000);
             }
         }
     };
-
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -101,6 +93,7 @@ const ResetPassword = () => {
                                     {showPassword ? (<IoEyeOutline />) : (<IoEyeOffOutline />)}
                                 </span>
                             </div>
+                            {errors.password && <p className='text-xs text-red-600 -mt-4'>{errors.password}</p>}
                             <div className='w-full px-4 py-2 rounded-2xl flex items-center gap-3 bg-[#34395C]'>
                                 <IoKeyOutline className='text-white' size={35} />
                                 <div className='flex flex-col text-white w-full'>
@@ -113,6 +106,7 @@ const ResetPassword = () => {
                                     {showConfirmPassword ? (<IoEyeOutline />) : (<IoEyeOffOutline />)}
                                 </span>
                             </div>
+                            {errors.confirmPassword && <p className='text-xs text-red-600 -mt-4'>{errors.confirmPassword}</p>}
                             <button className='w-full bg-gradient-to-b from-[#5F27CD] to-[#341F97] py-3 rounded-md font-semibold text-white' type='submit'>
                                 Reset
                             </button>

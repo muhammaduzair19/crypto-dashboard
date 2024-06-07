@@ -1,7 +1,5 @@
 export const useLoginValidation = ({ email, password }) => {
 
-    console.log(email, "email");
-    console.log(password, "password");
     const errors = {};
 
     if (!email) {
@@ -21,9 +19,6 @@ export const useLoginValidation = ({ email, password }) => {
 };
 
 export const useConfirmPasswordValidation = (password, confirmPassword) => {
-
-    console.log(password, "password");
-    console.log(confirmPassword, "confirmPassword");
     const errors = {};
 
     if (!password && !confirmPassword) {

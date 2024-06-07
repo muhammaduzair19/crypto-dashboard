@@ -19,10 +19,8 @@ const ForgotPassword = () => {
         const formData = {
             email: emailRef.current.value,
         };
-        console.log(formData);
 
         const result = await usePostRequest('forget-password', formData);
-        console.log(result)
         const { code, message } = result;
         if (code === 200) {
             emailRef.current.value = ''
