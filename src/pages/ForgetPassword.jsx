@@ -22,6 +22,7 @@ const ForgotPassword = () => {
 
         const result = await usePostRequest('forget-password', formData);
         const { code, message } = result;
+        console.log(result)
         if (code === 200) {
             emailRef.current.value = ''
             setOpen(true);
