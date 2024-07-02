@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import Logo from '../assets/logo.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { IoKeyOutline, IoEyeOutline, IoEyeOffOutline, CiMail } from "../utils/Icons.js";
-import SnackbarAlert from '../components/SnackbarAlert.jsx';
+import { IoKeyOutline, IoEyeOutline, IoEyeOffOutline } from "../utils/Icons.js";
 import { useConfirmPasswordValidation } from '../Hooks/useValidation.js';
 import { useResetPasswordRequest } from '../Hooks/useRequest.js';
+import Logo from '../assets/logo.svg';
+import SnackbarAlert from '../components/SnackbarAlert.jsx';
 
 const ResetPassword = () => {
     const [showPassword, setShowPassword] = useState(false);

@@ -5,10 +5,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { IoKeyOutline, IoEyeOutline, IoEyeOffOutline, CiMail } from "../utils/Icons.js";
 import SnackbarAlert from '../components/SnackbarAlert.jsx';
 import { useLoginValidation } from '../Hooks/useValidation.js';
+import { BeatLoader } from 'react-spinners';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [severity, setSeverity] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
@@ -19,6 +21,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true)
         const formData = {
             email: emailRef.current.value,
             password: passwordRef.current.value,
@@ -30,18 +33,19 @@ const Login = () => {
 
         if (Object.keys(validationErrors).length === 0) {
             const result = await usePostRequest('login', formData);
-            const { data, code } = result;
+            const { data, code, message } = result;
             if (code === 200 && data) {
                 localStorage.setItem('token1fx', JSON.stringify(data));
                 setOpen(true);
                 setMessage('Login Successful');
                 setSeverity('success');
+                setLoading(false)
                 setTimeout(() => {
                     navigate('/');
                 }, 2000)
             } else {
                 setOpen(true);
-                setMessage('Login Failed');
+                setMessage(message);
                 setSeverity('error');
             }
         }
@@ -96,7 +100,7 @@ const Login = () => {
                         </Link>
                     </div>
                     <button className='w-full bg-gradient-to-b from-[#5F27CD] to-[#341F97] py-3 rounded-md font-semibold text-white' type='submit'>
-                        Login
+                        {loading ? <BeatLoader className='text-white' color='#D1D3EB' size={12} /> : 'Login'}
                     </button>
                 </form>
 
