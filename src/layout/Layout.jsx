@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import React, { Suspense, lazy, useEffect } from 'react'
+import { useNavigate, Outlet } from 'react-router-dom'
 import Sidemenu from '../components/Sidemenu'
 import Nav from '../components/Nav'
 import { useToken } from '../Hooks/useRequest'
+import Loading from '../pages/Loading'
 
 const Layout = () => {
     const navigate = useNavigate()
@@ -15,6 +16,8 @@ const Layout = () => {
 
     }, [])
 
+
+
     return (
         <div className='w-full min-h-screen bg-[#191C2F] flex'>
             <div className="w-20 md:w-24 lg:flex-1">
@@ -25,7 +28,9 @@ const Layout = () => {
                     <Nav />
                 </div>
                 <main className='w-full h-screen overflow-scroll'>
-                    <Outlet />
+                    <Suspense fallback={<Loading />}>
+                        <Outlet />
+                    </Suspense>
                 </main>
             </div>
         </div>

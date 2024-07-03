@@ -12,7 +12,7 @@ const Sidemenu = () => {
         <section className='w-full h-screen bg-tranparent text-white flex flex-col justify-between py-2'>
             <div className='flex flex-col gap-5'>
                 <div className='w-full flex justify-center items-center py-3 lg:py-2 px-2 lg:px-6'>
-                    <img src={Logo} alt="" />
+                    <img  src={Logo} alt="" />
                 </div>
                 <div className='flex flex-col gap-4'>
                     <span className='w-full px-2 lg:px-6 flex flex-col text-sm md:text-lg'>
