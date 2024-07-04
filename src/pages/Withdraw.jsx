@@ -105,7 +105,7 @@ const Withdraw = () => {
 
   return (
     <main className='w-full h-full flex flex-col gap-3'>
-      <SnackbarAlert message={'Text has been copied'} open={open} handleClose={handleClose} />
+      <SnackbarAlert message={'Address has been copied'} open={open} handleClose={handleClose} />
 
       <header>
 

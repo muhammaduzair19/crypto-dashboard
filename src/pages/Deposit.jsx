@@ -80,7 +80,7 @@ const Deposit = () => {
 
   return (
     <main className='w-full h-full text-white flex flex-col gap-3'>
-      <SnackbarAlert message={'Text has been copied'} open={open} handleClose={handleClose} />
+      <SnackbarAlert message={'Address has been copied'} open={open} handleClose={handleClose} />
       <header>
         <h1 className='text-4xl font-bold text-darker-600'>
           Deposit Crypto

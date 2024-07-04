@@ -2,15 +2,6 @@ import React, { Suspense, lazy } from 'react'
 import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom'
 
 import PrivateRoute from './utils/PrivateRoute'
-import Loading from './pages/Loading'
-// import Dashboard from './pages/Dashboard'
-// import Wallet from './pages/Wallet'
-// import Exchange from './pages/Exchange'
-// import Withdraw from './pages/Withdraw'
-// import Deposit from './pages/Deposit'
-// import Transactions from './pages/Transactions'
-// import Layout from './layout/Layout'
-
 import Login from './pages/Login'
 import Notfound from './pages/Notfound'
 import Forget from './pages/ForgetPassword'
@@ -24,11 +15,6 @@ const Withdraw = lazy(() => import('./pages/Withdraw'))
 const Deposit = lazy(() => import('./pages/Deposit'))
 const Transactions = lazy(() => import('./pages/Transactions'))
 const Layout = lazy(() => import('./layout/Layout'))
-
-// const Login = lazy(() => import('./pages/Login'))
-// const Notfound = lazy(() => import('./pages/Notfound'))
-// const Forget = lazy(() => import('./pages/ForgetPassword'))
-// const Reset = lazy(() => import('./pages/ResetPassword'))
 
 const App = () => {
 

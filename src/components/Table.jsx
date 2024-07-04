@@ -123,7 +123,7 @@ const Table = ({ limit }) => {
 
     return (
         <div className="w-full py-3 border-[#34395C] border flex flex-col rounded-lg">
-            <SnackbarAlert message={'Text has been copied'} open={open} handleClose={handleClose} />
+            <SnackbarAlert message={'Address has been copied'} open={open} handleClose={handleClose} />
             <DataTable value={limit ? data?.slice(0, limit) : data} className='text-darker-400 px-3'>
                 <Column field="currency" body={iconBodyTemplate} header="Currency"></Column>
                 <Column field="address" body={amountAddressTemplate} header="Address"></Column>

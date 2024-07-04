@@ -15,35 +15,31 @@ const Dashboard = () => {
   const [balance, setBalance] = useState();
   const [activeBadge, setActiveBadge] = useState('24H');
 
-  useEffect(() => {
-    const getWallets = async () => {
-      const { data, code } = await useGetRequest('wallets');
-      if (code === 200 && data) {
-        setWallets(data);
-      } else {
-        setWallets([]);
-      }
-    };
-
-    const getBalance = async () => {
-      const { data, code } = await useGetRequest('balance')
-      if (data != null && code == 200) {
-        setBalance(data)
-      }
-      else {
-        setBalance([])
-      }
-    }
-
-
-
-
-    const token = useToken();
-    if (!token) {
-      navigate('/login');
+  const getWallets = async () => {
+    const { data, code } = await useGetRequest('wallets');
+    if (code === 200 && data) {
+      setWallets(data);
     } else {
+      setWallets([]);
+    }
+  };
+
+  const getBalance = async () => {
+    const { data, code } = await useGetRequest('balance')
+    if (data != null && code == 200) {
+      setBalance(data)
+    }
+    else {
+      setBalance([])
+    }
+  }
+  useEffect(() => {
+    const token = useToken();
+    if (token) {
       getWallets();
       getBalance();
+    } else {
+      navigate('/login');
     }
   }, [navigate]);
 
