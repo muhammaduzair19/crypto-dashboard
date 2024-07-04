@@ -5,6 +5,7 @@ import copy from '../assets/copy.svg'
 import { BsCurrencyDollar } from '../utils/Icons.js'
 import { useGetRequest, useToken } from '../Hooks/useRequest.js'
 import { useNavigate } from 'react-router-dom'
+import { QRCode } from 'react-qrcode-logo'
 
 const Deposit = () => {
   const [coin, setCoin] = useState('')
@@ -138,9 +139,9 @@ const Deposit = () => {
 
         <div className='w-full flex flex-col gap-5'>
           <h2 className='text-2xl text-darker-600 font-bold'>Deposit Address</h2>
-          <div className='w-full h-28 px-3 bg-darker-900 rounded-md flex gap-4 items-center'>
-            <span className='h-24 w-24 bg-red-900'>
-              <img className='w-full h-full object-cover' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa5qlxYcLGzeqia7ukJ2EgXFhHrkHrMRnaIVcRS7nGOA&s" alt="" />
+          <div className='w-full h-32 px-3 bg-darker-900 rounded-md flex gap-4 items-center'>
+            <span className='h-30 w-30 flex justify-center items-center overflow-hidden'>
+              {address && <QRCode value={address} size={90} qrStyle='fluid' />}
             </span>
 
             {
