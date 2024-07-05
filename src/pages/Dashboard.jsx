@@ -33,6 +33,9 @@ const Dashboard = () => {
       setBalance([])
     }
   }
+
+
+  
   useEffect(() => {
     const token = useToken();
     if (token) {
@@ -57,7 +60,7 @@ const Dashboard = () => {
             View all wallets
           </span>
         </div>
-        <div className="w-full md:w-2/3 flex flex-wrap gap-2">
+        <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2">
           <BalanceCard balance={balance} />
           {
             wallets[0] && wallets?.map((wallet, idx) => (
@@ -76,18 +79,19 @@ const Dashboard = () => {
         <div className="w-full flex justify-between px-5 py-3">
           <h1 className="text-2xl text-white font-semibold">Overview</h1>
           <div className="flex gap-2">
-            {['24H', '1M', '3M', '6M', '1Y'].map((period) => (
-              <span
-                key={period}
-                onClick={() => setActiveBadge(period)}
-                className={`w-16 h-8 flex justify-center items-center ${activeBadge === period
-                  ? 'bg-gradient-to-b from-[#5F27CD] to-[#341F97]'
-                  : 'border border-[#34395C]'
-                  } px-4 py-1.5 rounded-md cursor-pointer text-white`}
-              >
-                {period}
-              </span>
-            ))}
+            {
+              ['24H', '1M', '3M', '6M', '1Y']?.map((period) => (
+                <span
+                  key={period}
+                  onClick={() => setActiveBadge(period)}
+                  className={`w-16 h-8 flex justify-center items-center ${activeBadge === period
+                    ? 'bg-gradient-to-b from-[#5F27CD] to-[#341F97]'
+                    : 'border border-[#34395C]'
+                    } px-4 py-1.5 rounded-md cursor-pointer text-white`}
+                >
+                  {period}
+                </span>
+              ))}
           </div>
         </div>
         <div className="w-full">

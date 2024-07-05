@@ -76,7 +76,7 @@ const Table = ({ limit }) => {
     }
 
     const iconBodyTemplate = (data) => {
-        return <Tag className={`capitalize font-semibold  px-3 text-xs md:text-sm rounded-full`} >
+        return <Tag className={`capitalize font-semibold px-1 md:px-3 text-xs md:text-sm rounded-full`} >
             {getIcon(data)} {data?.network}  <span className='font-normal hidden sm:inline-block uppercase'>{data.currency}</span>
         </Tag>;
     };
@@ -85,7 +85,7 @@ const Table = ({ limit }) => {
     };
 
     const amountColorTemplate = (data) => {
-        return <Tag value={data.amount} className={`uppercase font-semibold px-3 text-xs md:text-sm rounded-full ${getColor(data)}`} ></Tag>;
+        return <Tag value={data.amount} className={`uppercase font-semibold px-3 text-xs md:text-sm text-right rounded-full ${getColor(data)}`} ></Tag>;
     };
 
     const amountAddressTemplate = (data) => {
@@ -94,8 +94,9 @@ const Table = ({ limit }) => {
                 {
                     data.address ? (
                         <>
-                            <p className='text-xs hidden xs:block md:text-sm truncate'>{data.address}</p>
-                            <p className='text-xs block xs:hidden md:text-sm truncate'>{data.address.slice(0, 20)}...</p>
+                            <p className='text-xs hidden md:block md:text-sm  truncate'>{data.address}</p>
+                            <p className='text-xs hidden sm:block md:text-sm md:hidden truncate'>{data.address.slice(0, 20)}</p>
+                            <p className='text-xs block sm:hidden truncate'>{data.address.slice(0, 10)}...</p>
                             <CopyToClipboard
                                 text={data.address}                >
                                 <img className='cursor-pointer w-4'
