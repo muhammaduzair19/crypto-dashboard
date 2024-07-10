@@ -9,7 +9,7 @@ const Sidemenu = () => {
     const [active, setActive] = useState('dashboard')
 
     return (
-        <section className='w-full h-screen bg-tranparent text-white flex flex-col justify-between py-2'>
+        <section className='w-full h-screen bg-tranparent text-white flex flex-col justify-between py-2 border-r  border-[#34395C]'>
             <div className='flex flex-col gap-5'>
                 <div className='w-full flex justify-center items-center py-3 lg:py-2 px-2 lg:px-6'>
                     <img  src={Logo} alt="" />

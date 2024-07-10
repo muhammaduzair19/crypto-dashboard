@@ -104,7 +104,7 @@ const Withdraw = () => {
 
 
   return (
-    <main className='w-full h-full flex flex-col gap-3'>
+    <main className='w-full h-full text-white px-3 xs:px-4 sm:px-5 md:px-6 py-3 xs:py-4 sm:py-6 flex flex-col gap-3'>
       <SnackbarAlert message={'Address has been copied'} open={open} handleClose={handleClose} />
 
       <header>
@@ -116,7 +116,7 @@ const Withdraw = () => {
 
       <div className='flex w-full flex-col'>
         <div className=' flex flex-col md:flex-row w-full gap-3'>
-          <div className='w-full md:w-[70%] lg:w-1/2 px-3 h-44 flex-col flex gap-4'>
+          <div className='w-full md:w-[70%] lg:w-1/2 px-1 sm:px-2 h-44 flex-col flex gap-4'>
             <h2 className='text-2xl text-darker-600 font-bold'>Deposity Address</h2>
             <div className='flex gap-2'>
               <p className='text-darker-400'>{address != '' ? address : 'No address found'}</p>

@@ -18,16 +18,16 @@ const Exchange = () => {
   }, [])
 
   return (
-    <main className='w-full h-full flex flex-col gap-5 pr-2 lg:pr-20'>
+    <main className='w-full h-full text-white px-3 xs:px-4 sm:px-5 md:px-6 py-3 xs:py-4 sm:py-6 flex flex-col gap-3 lg:pr-20'>
       <header>
 
         <h1 className='text-4xl font-bold text-darker-600'>
           Exchanges
         </h1>
       </header>
-      <div className='flex flex-col gap-6'>
+      <div className='flex flex-col gap-4 px-1 sm:px-2'>
         <h2 className='text-2xl text-darker-600 font-bold'>Operation  </h2>
-        <div className='flex justify-between gap-5  items-center flex-col sm:flex-row'>
+        <div className='flex justify-between gap-4 items-center flex-col sm:flex-row'>
           <div className='w-full sm:w-1/2 flex flex-col gap-4'>
             <div className='w-full text-white'>
               <p className='font-semibold mb-1 text-md text-white'>Select Coin</p>

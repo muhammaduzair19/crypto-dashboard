@@ -49,14 +49,6 @@ const Deposit = () => {
 
 
 
-  const getQR = async (link) => {
-    if (link !== 'not selected') {
-      setAddress(link)
-    }
-  }
-
-
-
   useEffect(() => {
     const token = useToken();
     if (token == null || token == undefined) {
@@ -80,14 +72,14 @@ const Deposit = () => {
   };
 
   return (
-    <main className='w-full h-full text-white flex flex-col gap-3'>
+    <main className='w-full h-full text-white px-3 xs:px-4 sm:px-5 md:px-6 py-3 xs:py-4 sm:py-6 flex flex-col gap-3 '>
       <SnackbarAlert message={'Address has been copied'} open={open} handleClose={handleClose} />
       <header>
         <h1 className='text-4xl font-bold text-darker-600'>
           Deposit Crypto
         </h1>
       </header>
-      <div className='w-full md:w-[70%] lg:w-1/2 px-3 flex flex-col gap-5'>
+      <div className='w-full md:w-[70%] lg:w-1/2 px-1 sm:px-2 flex flex-col gap-3'>
         <div className='flex flex-col gap-4'>
           <h2 className='text-2xl text-darker-600 font-bold'>Deposity Address</h2>
           <form className='flex flex-col gap-3'>

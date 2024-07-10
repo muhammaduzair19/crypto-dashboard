@@ -1,4 +1,4 @@
-import { IoArrowForwardOutline, IoEyeOffOutline, IoEyeOutline, IoKeyOutline, IoCheckmark } from "react-icons/io5";
+import { IoArrowForwardOutline, IoEyeOffOutline, IoEyeOutline,IoMenuOutline, IoKeyOutline, IoCheckmark } from "react-icons/io5";
 import { FaEthereum, FaRegCircleUser} from 'react-icons/fa6'
 import { TbArrowsExchange2 } from "react-icons/tb";
 import { CiMail } from "react-icons/ci";
@@ -13,4 +13,4 @@ import { BsCurrencyDollar, BsThreeDotsVertical, BsArrowDownShort, BsArrowUpShort
 
 
 
-export { CiMail, BsThreeDotsVertical, FaRegCircleUser, AiOutlineLogout, LuBox, IoArrowForwardOutline, IoEyeOffOutline, IoEyeOutline, IoKeyOutline, BsCurrencyDollar, BsArrowDownShort, BsArrowUpShort, BsCurrencyBitcoin, IoCheckmark, TbArrowsExchange2, FaEthereum, BsSpeedometer2, HiMiniMagnifyingGlass, HiOutlineBell, }
+export { CiMail, BsThreeDotsVertical, IoMenuOutline, FaRegCircleUser, AiOutlineLogout, LuBox, IoArrowForwardOutline, IoEyeOffOutline, IoEyeOutline, IoKeyOutline, BsCurrencyDollar, BsArrowDownShort, BsArrowUpShort, BsCurrencyBitcoin, IoCheckmark, TbArrowsExchange2, FaEthereum, BsSpeedometer2, HiMiniMagnifyingGlass, HiOutlineBell, }
