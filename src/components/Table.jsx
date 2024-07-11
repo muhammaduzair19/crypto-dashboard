@@ -10,16 +10,16 @@ import SnackbarAlert from './SnackbarAlert';
 import { useGetRequest, useToken } from '../Hooks/useRequest.js';
 import { useNavigate } from 'react-router-dom';
 
-const Table = ({ limit }) => {
+const Table = ({ limit, blockchain='all' }) => {
 
     const [open, setOpen] = useState(false);
     const [data, setData] = useState();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
 
 
     const getTransactions = async () => {
-        const { data, code } = await useGetRequest('transactions');
+        const { data, code } = await useGetRequest(blockchain !== 'all' ? `transactions?blockchain=${blockchain}` : 'transactions');
         if (data != null && code == 200) {
             setData(data)
         }
@@ -37,7 +37,7 @@ const Table = ({ limit }) => {
         else {
             getTransactions()
         }
-    }, [])
+    }, [blockchain])
 
     const getSeverity = (data) => {
         switch (data.status) {

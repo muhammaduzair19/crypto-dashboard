@@ -1,5 +1,5 @@
 export const BaseUrl = "http://24.199.99.6:9002"    
-// export const BaseUrl = "https://e0dc-2400-adc1-192-4a00-d0f7-dd3b-1992-aff9.ngrok-free.app"
+// export const BaseUrl = "http://192.168.18.49:3000"
 
 
 export const useGetRequest = async (endpoints) => {
@@ -14,7 +14,6 @@ export const useGetRequest = async (endpoints) => {
     });
     const result = await results.json();
     const { code } = result;
-
     if (code === 401) {
         localStorage.removeItem('token1fx')
         return

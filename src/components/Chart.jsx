@@ -1,24 +1,8 @@
 import React, { PureComponent } from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, Tooltip, ResponsiveContainer } from 'recharts';
 
-const data = [
-    {
-        name: '24 hrs',
-        uv: 4000,
-        pv: 2400,
-        amt: 2400,
-    },
-    {
-        name: 'Page B',
-        uv: 3000,
-        pv: 1398,
-        amt: 2210,
-    },
 
-];
-
-const Chart = () => {
-
+const Chart = ({ data }) => {
 
     return (
         <ResponsiveContainer width="100%" height="100%">
@@ -28,15 +12,13 @@ const Chart = () => {
                 data={data}
                 margin={{
                     top: 10,
-                    right: 30,
-                    left: 30,
+                    right: 10,
+                    left: 10,
                     bottom: 10,
                 }}
             >
                 <Tooltip />
-                {/* <Area type="monotone" dataKey="uv" stackId="1" stroke="#8884d8" fill="#8884d8" /> */}
-                {/* <Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" /> */}
-                <Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" />
+                <Area type="monotone" dataKey="high"  stackId="1" stroke="#6A74CC" fillOpacity={0}/>
             </AreaChart>
         </ResponsiveContainer>
     );

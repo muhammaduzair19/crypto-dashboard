@@ -12,6 +12,7 @@ const Wallet = () => {
   const navigate = useNavigate()
   const [wallets, setWallets] = useState([]);
   const [balance, setBalance] = useState();
+  const [currentBlockchain, setCurrentBlockchain] = useState('Ethereum')
 
   useEffect(() => {
     const getWallets = async () => {
@@ -68,13 +69,15 @@ const Wallet = () => {
         <div className="w-full grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
           <BalanceCard balance={balance} />
           {
-            wallets[0] && wallets?.map((wallet, idx) => (
+            wallets[0] && wallets?.map((wallet) => (
               <WalletCard
                 key={wallet?.address}
                 title={wallet?.blockchain}
                 amount={wallet?.balance?.balance}
                 tag={wallet?.balance?.symbol}
                 tokens={wallet?.balance?.tokens}
+                setCurrentBlockchain={setCurrentBlockchain}
+                currentBlockchain={currentBlockchain}
               />
             ))}
         </div>
@@ -83,11 +86,8 @@ const Wallet = () => {
 
       <section className="w-full bg-darker-900 rounded-2xl flex flex-col gap-2 px-3 sm:px-4 py-2">
         <h2 className="text-2xl font-semibold text-white">Recent Transactions</h2>
-        <Table limit={2} />
-        <Link
-          to="/recent-transaction"
-          className="flex items-center text-sm font-bold gap-2 text-primary-light"
-        >
+        <Table blockchain={currentBlockchain} />
+        <Link to="/recent-transaction" className="flex items-center text-sm font-bold gap-2 text-primary-light">
           View all transactions <IoArrowForwardOutline />
         </Link>
       </section>

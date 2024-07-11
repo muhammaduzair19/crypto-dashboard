@@ -11,7 +11,10 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [wallets, setWallets] = useState([]);
   const [balance, setBalance] = useState();
-  const [activeBadge, setActiveBadge] = useState('24H');
+  const [duration, setDuration] = useState('24H');
+  const [currentBlockchain, setCurrentBlockchain] = useState('Ethereum')
+  const [graph, setGraph] = useState([])
+
 
   const getWallets = async () => {
     const { data, code } = await useGetRequest('wallets');
@@ -32,6 +35,17 @@ const Dashboard = () => {
     }
   }
 
+  const getData = async (blockchain, since) => {
+    const { data, code } = await useGetRequest(`graph?since=${since}&blockchain=${blockchain}`)
+    if (data != null && code == 200) {
+      setGraph(data)
+
+    }
+    else {
+      setBalance([])
+    }
+  }
+
 
 
   useEffect(() => {
@@ -44,7 +58,20 @@ const Dashboard = () => {
     }
   }, [navigate]);
 
+
+
+  useEffect(() => {
+    getData(currentBlockchain, duration)
+  }, [currentBlockchain, duration])
+
+
+
+
+
+
+
   return (
+  
     <main className="w-full h-full px-3 xs:px-4 sm:px-5 md:px-6 py-3 xs:py-4 sm:py-6 flex flex-col gap-4">
 
       <section className="w-full flex flex-col lg:flex-row gap-4">
@@ -64,28 +91,30 @@ const Dashboard = () => {
         <div className="w-full grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
           <BalanceCard balance={balance} />
           {
-            wallets[0] && wallets?.map((wallet, idx) => (
+            wallets[0] && wallets?.map((wallet) => (
               <WalletCard
                 key={wallet?.address}
                 title={wallet?.blockchain}
                 amount={wallet?.balance?.balance}
                 tag={wallet?.balance?.symbol}
                 tokens={wallet?.balance?.tokens}
+                setCurrentBlockchain={setCurrentBlockchain}
+                currentBlockchain={currentBlockchain}
               />
             ))}
         </div>
       </section>
 
       <section className="w-full h-56 bg-darker-900 rounded-2xl flex flex-col">
-        <div className="w-full flex justify-between gap-2 p-2 md:px-3">
-          <h1 className="text-2xl text-white font-semibold">Overview</h1>
-          <div className="flex gap-2 flex-wrap">
+        <div className="w-full flex justify-between flex-col sm:flex-row gap-2 p-2 md:px-3">
+          <h1 className="text-2xl text-white font-semibold">{currentBlockchain}</h1>
+          <div className="flex gap-2 flex-wrap justify-center sm:justify-end">
             {
               ['24H', '1M', '3M', '6M', '1Y']?.map((period) => (
                 <span
                   key={period}
-                  onClick={() => setActiveBadge(period)}
-                  className={`w-14 h-6 flex text-xs  justify-center items-center ${activeBadge === period
+                  onClick={() => setDuration(period)}
+                  className={`w-14 h-6 flex text-[9px] sm:text-xs justify-center items-center ${duration === period
                     ? 'bg-gradient-to-b from-[#5F27CD] to-[#341F97]'
                     : 'border border-[#34395C]'
                     } py-1.5 rounded-md cursor-pointer text-white`}
@@ -95,15 +124,15 @@ const Dashboard = () => {
               ))}
           </div>
         </div>
-        
-        <div className="w-full overflow-hidden">
-          <Chart />sd
+
+        <div className="w-full h-96 overflow-hidden">
+          <Chart data={graph} />
         </div>
       </section>
 
       <section className="w-full bg-darker-900 rounded-2xl flex flex-col gap-2 px-3 sm:px-4 py-2">
         <h2 className="text-2xl font-semibold text-white">Recent Transactions</h2>
-        <Table limit={2} />
+        <Table limit={3} blockchain={currentBlockchain} />
         <Link
           to="/recent-transaction"
           className="flex items-center text-sm font-bold gap-2 text-primary-light"
