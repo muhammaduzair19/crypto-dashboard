@@ -59,11 +59,11 @@ const Nav = () => {
                         showBalance ? (
                             <IoEyeOutline
                                 onClick={() => setShowBalance(!showBalance)}
-                                size={25}
+                                size={20}
                                 className='text-[#575979] cursor-pointer' />) :
                             (<IoEyeOffOutline
                                 onClick={() => setShowBalance(!showBalance)}
-                                size={25}
+                                size={20}
                                 className='text-[#575979] cursor-pointer' />)
                     }
 

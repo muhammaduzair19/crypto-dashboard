@@ -42,7 +42,7 @@ const MobileNav = () => {
 
 
     return (
-        <nav className='w-full h-full px-2 bg-transparent flex justify-between py-5'>
+        <nav className='w-full h-full px-3 bg-transparent flex justify-between py-5'>
             <div className='bg-[#34395C] rounded-2xl w-full xs:w-1/2 sm:w-[35%] px-2 flex items-center'>
                 <HiMiniMagnifyingGlass color='#575979' size={25} />
                 <input type="text" placeholder='Search' className='w-full text-white p-2 outline-none bg-transparent placeholder:text-white' />
@@ -53,11 +53,11 @@ const MobileNav = () => {
                     {showBalance ? (
                         <IoEyeOutline
                             onClick={() => setShowBalance(!showBalance)}
-                            size={25}
+                            size={20}
                             className='text-[#575979] cursor-pointer' />) :
                         (<IoEyeOffOutline
                             onClick={() => setShowBalance(!showBalance)}
-                            size={25}
+                            size={20}
                             className='text-[#575979] cursor-pointer' />)
                     }
 

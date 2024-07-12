@@ -21,14 +21,14 @@ const [active, setActive] = useState('dashboard')
     };
 
     const DrawerList = (
-        <Box className='bg-darker-950' sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
-            <section className='w-full h-screen bg-tranparent text-white flex flex-col justify-between py-2'>
-                <div className='flex flex-col gap-5'>
-                    <div className='w-36 px-2 py-3'>
+        <Box className='bg-darker-950 min-h-screen' sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+            <section className='w-full h-full overflow-scroll bg-tranparent text-white flex flex-col justify-between  gap-2 py-1'>
+                <div className='flex flex-col gap-2'>
+                    <div className='w-36 p-1'>
                         <img src={Logo} alt="" />
                     </div>
-                    <div className='px-2 flex flex-col gap-4'>
-                        <span className='w-full text-sm flex flex-col'>
+                    <div className=' flex flex-col gap-4'>
+                        <span className='w-full px-2 text-sm flex flex-col'>
                             Hello, Welcome Back,
                             <span className='font-bold text-md'>Samwell</span>
                         </span>
@@ -40,8 +40,8 @@ const [active, setActive] = useState('dashboard')
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-col  gap-4'>
-                    <div className="flex flex-col gap-2 md:gap-4">
+                <div className='flex flex-col gap-3'>
+                    <div className="flex flex-col gap-2 md:gap-3">
                         <MobileMenuItem title="support" active={active} setActive={setActive} setShow={setShow} show={show} />
                         <MobileMenuItem title="settings" active={active} setActive={setActive} setShow={setShow} show={show} />
 
@@ -59,7 +59,7 @@ const [active, setActive] = useState('dashboard')
 
     return (
         <div>
-            <IoMenuOutline onClick={toggleDrawer(true)} size={30} className='text-darker-400 block lg:hidden' />
+            <IoMenuOutline onClick={toggleDrawer(true)} size={30} className='text-darker-400 block lg:hidden min-h-screen overflow-hidden' />
 
             <Drawer open={open} onClose={toggleDrawer(false)}>
                 {DrawerList}

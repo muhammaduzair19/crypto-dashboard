@@ -1,5 +1,4 @@
 export const BaseUrl = "http://24.199.99.6:9002"    
-// export const BaseUrl = "http://192.168.18.49:3000"
 
 
 export const useGetRequest = async (endpoints) => {

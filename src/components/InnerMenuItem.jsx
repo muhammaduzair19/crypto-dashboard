@@ -9,7 +9,7 @@ const InnerMenuItem = ({ title, innerActive, setInnerActive, link }) => {
             {
                 getSvg(title, innerActive)
             }
-            <p className={`${innerActive === title ? 'text-darker-400' : 'text-darker-600'} text-lg hidden lg:block capitalize`}>{title}</p>
+            <p className={`${innerActive === title ? 'text-darker-400' : 'text-darker-600'} text-md hidden lg:block capitalize`}>{title}</p>
 
         </Link>
 

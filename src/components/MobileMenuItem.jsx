@@ -23,7 +23,7 @@ const MobileMenuItem = ({ title, active, setActive, link, setShow, show }) => {
             <Link
                 to={link}
                 onClick={() => changeHandler(title)}
-                className="flex gap-2 cursor-pointer w-full items-center px-2 relative">
+                className="flex gap-1 cursor-pointer w-full items-center px-2 relative">
                 {getSvg(title, active)}
                 <p
                     className={`${active === title ? 'text-white' : 'text-darker-600'} text-md capitalize`}>
@@ -32,7 +32,7 @@ const MobileMenuItem = ({ title, active, setActive, link, setShow, show }) => {
 
             </Link>
             {title == 'wallet' && (
-                <div className='w-full justify-end px-8 gap flex flex-col gap-3'>
+                <div className='w-full justify-end px-8 gap flex flex-col gap-3 md:gap-2'>
                     <MobileMenuItem link={'/wallet/deposit'} title="deposit" active={innerActive} setActive={setActive} />
                     <MobileMenuItem link={'/wallet/withdraw'} title="withdraw" active={innerActive} setActive={setActive} />
                     <MobileMenuItem link={'/wallet/exchange'} title="exchange" active={innerActive} setActive={setActive} />
