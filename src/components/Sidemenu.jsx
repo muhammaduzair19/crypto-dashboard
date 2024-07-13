@@ -23,7 +23,7 @@ const Sidemenu = () => {
                         <MenuItem link={'/'} title="dashboard" active={active} setActive={setActive} setShow={setShow} show={show} />
                         <MenuItem link={'/'} title="market" active={active} setActive={setActive} setShow={setShow} show={show} />
                         <MenuItem link={'/wallet'} title="wallet" active={active} setActive={setActive} setShow={setShow} show={show} />
-                        <MenuItem link={'/'} title="history" active={active} setActive={setActive} setShow={setShow} show={show} />
+                        <MenuItem link={'/recent-transaction'} title="history" active={active} setActive={setActive} setShow={setShow} show={show} />
                     </div>
                 </div>
             </div>

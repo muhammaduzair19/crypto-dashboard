@@ -36,7 +36,7 @@ const [active, setActive] = useState('dashboard')
                             <MobileMenuItem link={'/'} title="dashboard" active={active} setActive={setActive} setShow={setShow} show={show} />
                             <MobileMenuItem link={'/'} title="market" active={active} setActive={setActive} setShow={setShow} show={show} />
                             <MobileMenuItem link={'/wallet'} title="wallet" active={active} setActive={setActive} setShow={setShow} show={show} />
-                            <MobileMenuItem link={'/'} title="history" active={active} setActive={setActive} setShow={setShow} show={show} />
+                            <MobileMenuItem link={'/recent-transaction'} title="history" active={active} setActive={setActive} setShow={setShow} show={show} />
                         </div>
                     </div>
                 </div>
