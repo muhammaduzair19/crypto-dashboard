@@ -61,7 +61,12 @@ const Dashboard = () => {
 
 
   useEffect(() => {
-    getData(currentBlockchain, duration)
+    const token = useToken();
+    if (token) {
+      getData(currentBlockchain, duration)
+    } else {
+      navigate('/login');
+    }
   }, [currentBlockchain, duration])
 
 
@@ -71,7 +76,7 @@ const Dashboard = () => {
 
 
   return (
-  
+
     <main className="w-full h-full px-3 xs:px-4 sm:px-5 md:px-6 py-3 xs:py-4 sm:py-6 flex flex-col gap-4">
 
       <section className="w-full flex flex-col lg:flex-row gap-4">

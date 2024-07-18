@@ -29,13 +29,11 @@ const Nav = () => {
 
     useEffect(() => {
         const token = useToken();
-        if (token == null || token == undefined) {
-            navigate('/login')
-        }
-        else {
+        if (token) {
             getBalance();
+        } else {
+            navigate('/login');
         }
-
     }, [])
 
 
